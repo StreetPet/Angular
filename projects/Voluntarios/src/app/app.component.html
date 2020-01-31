@@ -1,19 +1,48 @@
-<div class="page-container">
-	<div class="side-bar">
-		<ul class="nav flex-column">
-	  	<li class="nav-item">
-	    	<a class="nav-link active" routerLink="home">
-					<ion-icon name="list"></ion-icon>
-				</a>
-	  	</li>
-	  	<li class="nav-item">
-	    	<a class="nav-link" routerLink="new-voluntario">
-					<ion-icon name="add"></ion-icon>
-				</a>
-	  	</li>
-		</ul>
-	</div>
-	<div class="content-container">
- 		<router-outlet></router-outlet>
-	</div>
-</div>
+<!--    
+    <div class="preloader container-fluid row">
+        <div class="white-text text-darken-4 xpretext"><h4>Voluntários</h4></div>
+        <div class="progress lighten-2 xpreloading">
+            <div class="indeterminate darken-3"></div>
+        </div>
+    </div>
+  -->
+  <lib-header></lib-header>
+  <a class="darken-2 scrollToTop btn-floating btn-large waves-effect waves-light "><i class="mdi-hardware-keyboard-arrow-up"></i></a>
+  <div id="page-wrap">
+      <div id="main-content">
+          <div id="guts">
+              <div class="container">
+                  <div class="wrapper text-darken-3"> 
+                    <div class="page-container">
+                      <MenuVoluntario></MenuVoluntario>
+                      <div class="content-container">
+                         <router-outlet></router-outlet>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+
+  <lib-footer></lib-footer>
