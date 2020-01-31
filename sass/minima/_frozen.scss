@@ -1,0 +1,44 @@
+.fpage-content {
+    margin-top: 30px;
+    @include media-query($on-palm) {
+      margin-top: 5px;
+      padding-top: 0px;
+    }
+    padding: $spacing-unit 0;
+    padding-bottom: $footer-height;
+  }
+
+.rtitle {
+    margin: 0px 20px 50px 20px;
+    padding: 30px;
+    border: 1px solid darkgrey;
+    p {
+        color: #666666;
+        @include relative-font-size(0.9);
+    }
+}
+
+
+.rblock {
+    margin: 0px 20px 50px 20px;
+    padding: 10px 30px 10px 30px;
+    outline: 1px solid darkgrey;
+    height: 330px;
+    width: $content-width / 5 + 24;
+    float: left;
+    p {
+        color: #666666;
+        @include relative-font-size(0.9);
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        text-align: justify;
+        padding-top: 30px;
+    }
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+}

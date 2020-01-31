@@ -1,0 +1,144 @@
+.custom-header {
+  border-bottom: solid 1pt #777;
+  min-width: 375px;
+  margin-top: 3px;
+}
+
+.rss-subscribe {
+  float: right;
+  font-size: smaller;
+  height: 50px;
+}
+
+// Normal (desktop) ========================================================
+.img-uni-lu {
+  bottom: -2px;
+  border: solid 1pt #777;
+  border-bottom: solid 2px white;
+  border-radius: 14% 14% 0 0;
+  margin-left: 8%;
+  padding: 20px 27px 0px 27px;
+  position: relative;
+  width: 77px;
+  height: 66px;
+}
+
+.img-banner {
+  bottom: -20px;
+  position: relative;
+}
+
+.img-banner-main {
+  margin-left: 2%;
+  height: 30px;
+}
+
+.img-banner-motto {
+  width: 256px;
+  margin-left: 10px;
+}
+
+.img-lcsb {
+  float: right;
+  width: 250px;
+  position: absolute;
+  right: 0px;
+}
+
+.r3-logo {
+  float: left;
+  position: relative;
+  top: -10px;
+  width: 40px;
+  left: 100px;
+}
+
+.social-media-list {
+  float: right;
+  padding-right: 2%;
+  position: relative;
+}
+
+.svg-icon {
+  margin: 0px;
+  padding: 0px;
+}
+
+// Big screen ====================================================================================
+
+@media(max-width: 1050px) {
+  .img-logo-big {
+    display: none;
+  }
+}
+
+// Normal screen =================================================================================
+@media (max-width: 900px) {
+  .img-banner-motto {
+    display: none;
+  }
+
+  .img-uni-lu {
+    margin-left: 55px;
+  }
+}
+
+// Small-screen ==================================================================================
+
+@media (max-width: 700px) {
+  .img-logo-small {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .img-uni-lu {
+  }
+
+  .img-banner-main {
+    margin-left: 3%;
+  }
+
+  .img-banner-motto {
+    display: none;
+  }
+
+  .img-lcsb {
+    margin-right: 1%;
+    width: 120px;
+    display: none;
+  }
+}
+
+// Ultra-small screen ==================================================================================
+
+@media (max-width: 500px) {
+  .img-banner-main {
+    margin-left: 9px;
+    bottom: -8px;
+    max-width: 160px;
+  }
+
+  .img-uni-lu {
+    margin-left: 20px;
+    width: 40px;
+    height: auto;
+    padding: 12px 17px 0px 16px;
+  }
+
+  .img-lcsb {
+    display: none;
+    bottom: -6px;
+    margin-right: 10%;
+    position: relative;
+    width: 80px;
+  }
+
+  .social-media-list {
+    text-align: center;
+    position:relative;
+    right:33%;
+  }
+}
+
+
