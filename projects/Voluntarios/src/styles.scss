@@ -49,11 +49,11 @@ $footer-height: 50px;
 
 // Import partials.
 @import
-  "../../../minima/base",
-  "../../../minima/layout",
-  "../../../minima/frozen",
-  "../../../minima/syntax-highlighting",
-  "../../../minima/lcsb"
+  "../../../sass/minima/base",
+  "../../../sass/minima/layout",
+  "../../../sass/minima/frozen",
+  "../../../sass/minima/syntax-highlighting",
+  "../../../sass/minima/lcsb"
 ;
 
 /* You can add global styles to this file, and also import other style files */
