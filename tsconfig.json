@@ -19,6 +19,12 @@
       "dom"
     ],
     "paths": {
+      "layout": [
+        "dist/layout"
+      ],
+      "layout/*": [
+        "dist/layout/*"
+      ]
     }
   },
   "angularCompilerOptions": {
