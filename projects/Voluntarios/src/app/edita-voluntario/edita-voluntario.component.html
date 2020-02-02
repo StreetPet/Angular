@@ -1,0 +1,74 @@
+<div class="edit-page">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                Editar Voluntário
+            </li>
+        </ol>
+    </nav>
+    <div class="page-content">
+        <div class="row">
+            <div class="col col-md-4">
+                <img class="img-avatar" [src]="voluntario.avatar" />
+                <button mat-stroked-button class="change-img-button" color="primary" (click)="openDialog()">
+          Trocar Avatar
+        </button>
+            </div>
+            <div class="col col-md-8">
+                <form class="edit-form" [formGroup]="formVoluntario" novalidate (ngSubmit)="onSubmit(formVoluntario.value)">
+                    <div class="form-group">
+                        <mat-form-field class="input-style">
+                            <input matInput placeholder="Nome" class="form-control" formControlName="nome" />
+                        </mat-form-field>
+                        <ng-container *ngFor="let validation of validationMessages.nome">
+                            <mat-error *ngIf="
+                  formVoluntario.get('nome').hasError(validation.type) &&
+                  (formVoluntario.get('nome').dirty ||
+                    formVoluntario.get('nome').touched)
+                ">{{ validation.message }}</mat-error>
+                        </ng-container>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="input-style">
+                            <input matInput placeholder="Sobrenome" class="form-control" formControlName="sobrenome" />
+                        </mat-form-field>
+                        <ng-container *ngFor="let validation of validationMessages.sobrenome">
+                            <mat-error *ngIf="
+                  formVoluntario.get('sobrenome').hasError(validation.type) &&
+                  (formVoluntario.get('sobrenome').dirty ||
+                    formVoluntario.get('sobrenome').touched)
+                ">{{ validation.message }}</mat-error>
+                        </ng-container>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="input-style">
+                            <input matInput type="number" min="0" max="100" placeholder="Idade" class="form-control" formControlName="idade" />
+                        </mat-form-field>
+                        <ng-container *ngFor="let validation of validationMessages.idade">
+                            <mat-error *ngIf="
+                  formVoluntario.get('idade').hasError(validation.type) &&
+                  (formVoluntario.get('idade').dirty ||
+                    formVoluntario.get('idade').touched)
+                ">{{ validation.message }}</mat-error>
+                        </ng-container>
+                    </div>
+
+                    <div class="row submit-button-container">
+                        <div class="col-md-4">
+                            <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="!formVoluntario.valid">
+                Salvar
+              </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button mat-raised-button class="delete-button" color="warn" type="button" (click)="delete()">
+                Remover
+              </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
