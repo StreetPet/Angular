@@ -1,465 +1,561 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "PetFriendly": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/PetFriendly",
-      "sourceRoot": "projects/PetFriendly/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/PetFriendly",
-            "index": "projects/PetFriendly/src/index.html",
-            "main": "projects/PetFriendly/src/main.ts",
-            "polyfills": "projects/PetFriendly/src/polyfills.ts",
-            "tsConfig": "projects/PetFriendly/tsconfig.app.json",
-            "aot": false,
-            "assets": [
-              "projects/PetFriendly/src/favicon.ico",
-              "projects/PetFriendly/src/assets",
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
-            "styles": [
-              "projects/PetFriendly/src/styles.scss",
-              {
-                "input": "node_modules/@ionic/angular/css/normalize.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/structure.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/typography.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/core.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/padding.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/float-elements.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/text-alignment.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/text-transformation.css"
-              },
-              {
-                "input": "node_modules/@ionic/angular/css/flex-utils.css"
-              },
-              {
-                "input": "src/theme/variables.css"
-              }
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "js/jquery.nicescroll.min.js",
-              "js/jquery.nicescroll.plus.js",
-              "js/velocity.min.js",
-              "js/skrollr.min.js",
-              "js/jquery.scrolline.js",
-              "js/modernizr.js",
-              "js/main.js"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/PetFriendly/src/environments/environment.ts",
-                  "with": "projects/PetFriendly/src/environments/environment.prod.ts"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "PetFriendly": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
                 }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+            },
+            "root": "projects/PetFriendly",
+            "sourceRoot": "projects/PetFriendly/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/PetFriendly",
+                        "index": "projects/PetFriendly/src/index.html",
+                        "main": "projects/PetFriendly/src/main.ts",
+                        "polyfills": "projects/PetFriendly/src/polyfills.ts",
+                        "tsConfig": "projects/PetFriendly/tsconfig.app.json",
+                        "aot": false,
+                        "assets": [
+                            "projects/PetFriendly/src/favicon.ico",
+                            "projects/PetFriendly/src/assets",
+                            {
+                                "glob": "**/*.svg",
+                                "input": "node_modules/ionicons/dist/ionicons/svg",
+                                "output": "./svg"
+                            }
+                        ],
+                        "styles": [
+                            "projects/PetFriendly/src/styles.scss",
+                            {
+                                "input": "node_modules/@ionic/angular/css/normalize.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/structure.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/typography.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/core.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/padding.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/float-elements.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/text-alignment.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/text-transformation.css"
+                            },
+                            {
+                                "input": "node_modules/@ionic/angular/css/flex-utils.css"
+                            },
+                            {
+                                "input": "src/theme/variables.css"
+                            }
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "js/jquery.nicescroll.min.js",
+                            "js/jquery.nicescroll.plus.js",
+                            "js/velocity.min.js",
+                            "js/skrollr.min.js",
+                            "js/jquery.scrolline.js",
+                            "js/modernizr.js",
+                            "js/main.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [{
+                                "replace": "projects/PetFriendly/src/environments/environment.ts",
+                                "with": "projects/PetFriendly/src/environments/environment.prod.ts"
+                            }],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    }
                 },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "PetFriendly:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "PetFriendly:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "PetFriendly:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/PetFriendly/src/test.ts",
+                        "polyfills": "projects/PetFriendly/src/polyfills.ts",
+                        "tsConfig": "projects/PetFriendly/tsconfig.spec.json",
+                        "karmaConfig": "projects/PetFriendly/karma.conf.js",
+                        "assets": [
+                            "projects/PetFriendly/src/favicon.ico",
+                            "projects/PetFriendly/src/assets",
+                            {
+                                "glob": "**/*.svg",
+                                "input": "node_modules/ionicons/dist/ionicons/svg",
+                                "output": "./svg"
+                            }
+                        ],
+                        "styles": [
+                            "projects/PetFriendly/src/styles.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "js/jquery.nicescroll.min.js",
+                            "js/jquery.nicescroll.plus.js",
+                            "js/velocity.min.js",
+                            "js/skrollr.min.js",
+                            "js/jquery.scrolline.js",
+                            "js/modernizr.js",
+                            "js/main.js"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/PetFriendly/tsconfig.app.json",
+                            "projects/PetFriendly/tsconfig.spec.json",
+                            "projects/PetFriendly/e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "projects/PetFriendly/e2e/protractor.conf.js",
+                        "devServerTarget": "PetFriendly:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "PetFriendly:serve:production"
+                        }
+                    }
+                },
+                "ionic-cordova-serve": {
+                    "builder": "@ionic/angular-toolkit:cordova-serve",
+                    "options": {
+                        "cordovaBuildTarget": "app:ionic-cordova-build",
+                        "devServerTarget": "app:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "cordovaBuildTarget": "app:ionic-cordova-build:production",
+                            "devServerTarget": "app:serve:production"
+                        }
+                    }
+                },
+                "ionic-cordova-build": {
+                    "builder": "@ionic/angular-toolkit:cordova-build",
+                    "options": {
+                        "browserTarget": "app:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "app:build:production"
+                        }
+                    }
                 }
-              ]
             }
-          }
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "PetFriendly:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "PetFriendly:build:production"
+        "Voluntarios": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "projects/Voluntarios",
+            "sourceRoot": "projects/Voluntarios/src",
+            "prefix": "app",
+            "architect": {
+                "jekyll_dev": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "aot": true,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "buildOptimizer": false,
+                        "outputPath": "../jekyll/jekyll-theme-naveenshaji-material/app/voluntarios",
+                        "baseHref": "/app/voluntarios/",
+                        "index": "projects/Voluntarios/src/index.html",
+                        "main": "projects/Voluntarios/src/main.ts",
+                        "polyfills": "projects/Voluntarios/src/polyfills.ts",
+                        "tsConfig": "projects/Voluntarios/tsconfig.app.json",
+                        "assets": [
+                            "projects/Voluntarios/src/favicon.ico",
+                            "projects/Voluntarios/src/assets",
+                            {
+                                "glob": "**/*.svg",
+                                "input": "node_modules/ionicons/dist/ionicons/svg",
+                                "output": "./svg"
+                            }
+                        ],
+                        "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "projects/Voluntarios/src/styles.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "js/jquery.nicescroll.min.js",
+                            "js/jquery.nicescroll.plus.js",
+                            "js/velocity.min.js",
+                            "js/skrollr.min.js",
+                            "js/jquery.scrolline.js",
+                            "js/modernizr.js",
+                            "js/main.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [{
+                                "replace": "environments/environment.ts",
+                                "with": "environments/environment.prod.ts"
+                            }],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "jekyll": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "aot": true,
+                        "sourceMap": false,
+                        "optimization": true,
+                        "buildOptimizer": true,
+                        "outputPath": "../jekyll/jekyll-theme-naveenshaji-material/app/voluntarios",
+                        "baseHref": "/app/voluntarios/",
+                        "index": "projects/Voluntarios/src/index.html",
+                        "main": "projects/Voluntarios/src/main.ts",
+                        "polyfills": "projects/Voluntarios/src/polyfills.ts",
+                        "tsConfig": "projects/Voluntarios/tsconfig.app.json",
+                        "assets": [
+                            "projects/Voluntarios/src/favicon.ico",
+                            "projects/Voluntarios/src/assets",
+                            {
+                                "glob": "**/*.svg",
+                                "input": "node_modules/ionicons/dist/ionicons/svg",
+                                "output": "./svg"
+                            }
+                        ],
+                        "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "projects/Voluntarios/src/styles.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "js/jquery.nicescroll.min.js",
+                            "js/jquery.nicescroll.plus.js",
+                            "js/velocity.min.js",
+                            "js/skrollr.min.js",
+                            "js/jquery.scrolline.js",
+                            "js/modernizr.js",
+                            "js/main.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [{
+                                "replace": "environments/environment.ts",
+                                "with": "environments/environment.prod.ts"
+                            }],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "aot": false,
+                        "sourceMap": false,
+                        "outputPath": "dist/Voluntarios",
+                        "index": "projects/Voluntarios/src/index.html",
+                        "main": "projects/Voluntarios/src/main.ts",
+                        "polyfills": "projects/Voluntarios/src/polyfills.ts",
+                        "tsConfig": "projects/Voluntarios/tsconfig.app.json",
+                        "assets": [
+                            "projects/Voluntarios/src/favicon.ico",
+                            "projects/Voluntarios/src/assets",
+                            {
+                                "glob": "**/*.svg",
+                                "input": "node_modules/ionicons/dist/ionicons/svg",
+                                "output": "./svg"
+                            }
+                        ],
+                        "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "projects/Voluntarios/src/styles.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "js/jquery.nicescroll.min.js",
+                            "js/jquery.nicescroll.plus.js",
+                            "js/velocity.min.js",
+                            "js/skrollr.min.js",
+                            "js/jquery.scrolline.js",
+                            "js/modernizr.js",
+                            "js/main.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [{
+                                "replace": "environments/environment.ts",
+                                "with": "environments/environment.prod.ts"
+                            }],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "Voluntarios:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "Voluntarios:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "Voluntarios:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/Voluntarios/src/test.ts",
+                        "polyfills": "projects/Voluntarios/src/polyfills.ts",
+                        "tsConfig": "projects/Voluntarios/tsconfig.spec.json",
+                        "karmaConfig": "projects/Voluntarios/karma.conf.js",
+                        "assets": [
+                            "projects/Voluntarios/src/favicon.ico",
+                            "projects/Voluntarios/src/assets",
+                            {
+                                "glob": "**/*.svg",
+                                "input": "node_modules/ionicons/dist/ionicons/svg",
+                                "output": "./svg"
+                            }
+                        ],
+                        "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "projects/Voluntarios/src/styles.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "js/jquery.nicescroll.min.js",
+                            "js/jquery.nicescroll.plus.js",
+                            "js/velocity.min.js",
+                            "js/skrollr.min.js",
+                            "js/jquery.scrolline.js",
+                            "js/modernizr.js",
+                            "js/main.js"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/Voluntarios/tsconfig.app.json",
+                            "projects/Voluntarios/tsconfig.spec.json",
+                            "projects/Voluntarios/e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "projects/Voluntarios/e2e/protractor.conf.js",
+                        "devServerTarget": "Voluntarios:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "Voluntarios:serve:production"
+                        }
+                    }
+                }
             }
-          }
         },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "PetFriendly:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/PetFriendly/src/test.ts",
-            "polyfills": "projects/PetFriendly/src/polyfills.ts",
-            "tsConfig": "projects/PetFriendly/tsconfig.spec.json",
-            "karmaConfig": "projects/PetFriendly/karma.conf.js",
-            "assets": [
-              "projects/PetFriendly/src/favicon.ico",
-              "projects/PetFriendly/src/assets",
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
-            "styles": [
-              "projects/PetFriendly/src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "js/jquery.nicescroll.min.js",
-              "js/jquery.nicescroll.plus.js",
-              "js/velocity.min.js",
-              "js/skrollr.min.js",
-              "js/jquery.scrolline.js",
-              "js/modernizr.js",
-              "js/main.js"
-          ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/PetFriendly/tsconfig.app.json",
-              "projects/PetFriendly/tsconfig.spec.json",
-              "projects/PetFriendly/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/PetFriendly/e2e/protractor.conf.js",
-            "devServerTarget": "PetFriendly:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "PetFriendly:serve:production"
+        "Layout": {
+            "projectType": "library",
+            "root": "projects/layout",
+            "sourceRoot": "projects/layout/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/layout/tsconfig.lib.json",
+                        "project": "projects/layout/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/layout/src/test.ts",
+                        "tsConfig": "projects/layout/tsconfig.spec.json",
+                        "karmaConfig": "projects/layout/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/layout/tsconfig.lib.json",
+                            "projects/layout/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
             }
-          }
         },
-        "ionic-cordova-serve": {
-          "builder": "@ionic/angular-toolkit:cordova-serve",
-          "options": {
-            "cordovaBuildTarget": "app:ionic-cordova-build",
-            "devServerTarget": "app:serve"
-          },
-          "configurations": {
-            "production": {
-              "cordovaBuildTarget": "app:ionic-cordova-build:production",
-              "devServerTarget": "app:serve:production"
+        "Entities": {
+            "projectType": "library",
+            "root": "projects/entities",
+            "sourceRoot": "projects/entities/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/entities/tsconfig.lib.json",
+                        "project": "projects/entities/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/entities/src/test.ts",
+                        "tsConfig": "projects/entities/tsconfig.spec.json",
+                        "karmaConfig": "projects/entities/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/entities/tsconfig.lib.json",
+                            "projects/entities/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
             }
-          }
-        },
-        "ionic-cordova-build": {
-          "builder": "@ionic/angular-toolkit:cordova-build",
-          "options": {
-            "browserTarget": "app:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "app:build:production"
-            }
-          }
         }
-      }
     },
-    "Voluntarios": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/Voluntarios",
-      "sourceRoot": "projects/Voluntarios/src",
-      "prefix": "app",
-      "architect": {
-        "jekyll": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "aot": true,
-            "optimization": true,
-            "sourceMap": false,
-            "buildOptimizer": true,
-            "outputPath": "../jekyll/jekyll-theme-naveenshaji-material/app/voluntarios",
-            "baseHref": "/app/voluntarios/",
-            "index": "projects/Voluntarios/src/index.html",
-            "main": "projects/Voluntarios/src/main.ts",
-            "polyfills": "projects/Voluntarios/src/polyfills.ts",
-            "tsConfig": "projects/Voluntarios/tsconfig.app.json",
-            "assets": [
-              "projects/Voluntarios/src/favicon.ico",
-              "projects/Voluntarios/src/assets",
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
-            "styles": [
-              "projects/Voluntarios/src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "js/jquery.nicescroll.min.js",
-              "js/jquery.nicescroll.plus.js",
-              "js/velocity.min.js",
-              "js/skrollr.min.js",
-              "js/jquery.scrolline.js",
-              "js/modernizr.js",
-              "js/main.js"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/Voluntarios/src/environments/environment.ts",
-                  "with": "projects/Voluntarios/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/Voluntarios",
-            "index": "projects/Voluntarios/src/index.html",
-            "main": "projects/Voluntarios/src/main.ts",
-            "polyfills": "projects/Voluntarios/src/polyfills.ts",
-            "tsConfig": "projects/Voluntarios/tsconfig.app.json",
-            "aot": false,
-            "assets": [
-              "projects/Voluntarios/src/favicon.ico",
-              "projects/Voluntarios/src/assets",
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
-            "styles": [
-              "projects/Voluntarios/src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "js/jquery.nicescroll.min.js",
-              "js/jquery.nicescroll.plus.js",
-              "js/velocity.min.js",
-              "js/skrollr.min.js",
-              "js/jquery.scrolline.js",
-              "js/modernizr.js",
-              "js/main.js"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/Voluntarios/src/environments/environment.ts",
-                  "with": "projects/Voluntarios/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "Voluntarios:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "Voluntarios:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "Voluntarios:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/Voluntarios/src/test.ts",
-            "polyfills": "projects/Voluntarios/src/polyfills.ts",
-            "tsConfig": "projects/Voluntarios/tsconfig.spec.json",
-            "karmaConfig": "projects/Voluntarios/karma.conf.js",
-            "assets": [
-              "projects/Voluntarios/src/favicon.ico",
-              "projects/Voluntarios/src/assets",
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
-            "styles": [
-              "projects/Voluntarios/src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "js/jquery.nicescroll.min.js",
-              "js/jquery.nicescroll.plus.js",
-              "js/velocity.min.js",
-              "js/skrollr.min.js",
-              "js/jquery.scrolline.js",
-              "js/modernizr.js",
-              "js/main.js"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/Voluntarios/tsconfig.app.json",
-              "projects/Voluntarios/tsconfig.spec.json",
-              "projects/Voluntarios/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/Voluntarios/e2e/protractor.conf.js",
-            "devServerTarget": "Voluntarios:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "Voluntarios:serve:production"
-            }
-          }
-        }
-      }
-    },
-    "Layout": {
-      "projectType": "library",
-      "root": "projects/layout",
-      "sourceRoot": "projects/layout/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/layout/tsconfig.lib.json",
-            "project": "projects/layout/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/layout/src/test.ts",
-            "tsConfig": "projects/layout/tsconfig.spec.json",
-            "karmaConfig": "projects/layout/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/layout/tsconfig.lib.json",
-              "projects/layout/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    }
-  },
-  "defaultProject": "Voluntarios"
+    "defaultProject": "Voluntarios"
 }
