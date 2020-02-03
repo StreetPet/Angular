@@ -1,4 +1,5 @@
 node_modules
-enviroments
+environments/
 *.bck*
 passo a passo.md
+*.stackdump
