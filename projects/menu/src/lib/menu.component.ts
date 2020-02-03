@@ -12,4 +12,17 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
   }
 
+  get logged(): boolean {
+    return false;
+  }
+
+  public login(): Promise<void> {
+    console.log("Clicadono Login");
+    return Promise.resolve();
+  }
+
+  public logout(): Promise<void> {
+    console.log("Clicadono Logout");
+    return Promise.resolve();
+  }
 }

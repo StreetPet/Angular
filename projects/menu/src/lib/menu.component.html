@@ -1,0 +1,28 @@
+<div class="navbar-fixed">
+    <nav class="darken-2 waves-effect waves-light">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a internal href="/" class="brand-logo"><i class="mdi-communication-chat"></i> Voluntários</a
+        >
+        <ul class="links">
+          <li><a internal href=".">Home</a></li>
+
+                <li><a href="/app/voluntarios" alt="Voluntarios">Voluntários</a></li>
+                <li><a href="/app/pontos" alt="Pontos de Apoio">Pontos</a></li>
+                <li><a href="/app/pets" alt="Pets">Pets</a></li>
+                <li><a href="/app/petfriendly" alt="Pet Friendly">PetFriendly</a></li>
+
+                <button *ngIf="logged" mat-menu-item class="action" (click)="logout()" type="menu ">
+                  <mat-icon class="icon ">delete_forever</mat-icon>            <span>Log in</span>
+              </button>
+
+                <button *ngIf="!logged" mat-menu-item class="action" (click)="login()" type="menu">
+                  <mat-icon class="icon ">delete_forever</mat-icon>            <span>Log out</span>
+             </button>
+                </ul>
+                <a class="button-collapse " href="# " data-activates="nav-mobile "><i class="mdi-navigation-menu "></i
+        ></a>
+            </div>
+        </div>
+    </nav>
+</div>

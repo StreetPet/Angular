@@ -24,6 +24,24 @@
       ],
       "layout/*": [
         "dist/layout/*"
+      ],
+      "entities": [
+        "dist/entities"
+      ],
+      "entities/*": [
+        "dist/entities/*"
+      ],
+      "auth": [
+        "dist/auth"
+      ],
+      "auth/*": [
+        "dist/auth/*"
+      ],
+      "menu": [
+        "dist/menu"
+      ],
+      "menu/*": [
+        "dist/menu/*"
       ]
     }
   },
