@@ -10,3 +10,4 @@ Esta biblioteca terá todos componentes e serviços necessários para autentica�
 O Repositório AngularEntities está diretamente ligado a ela para fornecer as entidades Visitante e Avatar. Veja que neste nível a Entidade Voluntário é apenas Visitante, sendo sendo usado nela.
 
 Os Serviços definidos no Repositório AngularEntities usará esta biblitoeca para autenticar e autorizar ações sobre as entidades. Esta referência cruzada me preocupa, sugestões são bem vindas
+
