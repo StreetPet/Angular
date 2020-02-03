@@ -6,6 +6,7 @@ import { AvatarDialogComponent } from '../avatar-dialog/avatar-dialog.component'
 import { VoluntariosService } from 'projects/entities/src/lib/voluntarios.service';
 import { Subscription } from 'rxjs';
 import { Voluntario, AvatarVoluntario } from 'projects/entities/src/lib/voluntarios';
+import { ConfirmaRemocaoComponent } from '../confirma-remocao/confirma-remocao.component';
 
 @Component({
   selector: 'app-edita-voluntario',
@@ -27,7 +28,7 @@ export class EditaVoluntarioComponent implements OnInit, OnDestroy {
     'idade': [
       { type: 'required', message: 'A idade é obrigatório.' },
     ],
-    'email':[
+    'email': [
       { type: 'required', message: 'O e-mail é obrigatório.' }
     ]
   };
@@ -94,15 +95,23 @@ export class EditaVoluntarioComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.service.deleteVoluntario(this.voluntario.uid)
-      .then(
-        res => {
-          this.router.navigate(['/']);
-        },
-        err => {
-          console.log(err);
-        }
-      )
+    const dialogRef = this.dialog.open(ConfirmaRemocaoComponent, {
+      width: '250px',
+      data: this.voluntario
+    });
+
+    dialogRef.afterClosed().subscribe((result:boolean) => {
+      console.log('The dialog was closed'+result);
+      if (result) this.service.deleteVoluntario(this.voluntario.uid)
+        .then(
+          res => {
+            this.router.navigate(['/']);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
   }
 
   cancel() {

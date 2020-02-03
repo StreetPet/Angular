@@ -16,14 +16,16 @@ export class AvatarDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialogRef: MatDialogRef<AvatarDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private atualLink: AvatarVoluntario,
+    @Inject(MAT_DIALOG_DATA) private atualAvatar: AvatarVoluntario,
     private services: VoluntariosService
   ) { }
 
   ngOnInit() {
     this.subscription = this.getAvatars()
-      .subscribe(data => this.avatars = data);
-      this.avatars.push(this.atualLink);
+      .subscribe(data => {
+        this.avatars = data;
+        this.avatars.push(this.atualAvatar);
+      });
   }
 
   ngOnDestroy() {

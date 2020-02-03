@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Remover Voluntário</h1>
+<div mat-dialog-content>
+    <p>Tem Certeza que deseja Remover o Voluntário?</p>
+    <p> {{ voluntario.payload.doc.data().nome }} </p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()" cdkFocusInitial>Não (Cliquei por engano!)</button>
+    <button mat-button [mat-dialog-close]=true>Sim, remover este voluntário</button>
+</div>

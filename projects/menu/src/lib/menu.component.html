@@ -4,23 +4,71 @@
             <div class="container">
                 <a internal href="/" class="brand-logo"><i class="mdi-communication-chat"></i> Voluntários</a
         >
-        <ul class="links">
-          <li><a internal href=".">Home</a></li>
-
-                <li><a href="/app/voluntarios" alt="Voluntarios">Voluntários</a></li>
-                <li><a href="/app/pontos" alt="Pontos de Apoio">Pontos</a></li>
-                <li><a href="/app/pets" alt="Pets">Pets</a></li>
-                <li><a href="/app/petfriendly" alt="Pet Friendly">PetFriendly</a></li>
-
-                <button *ngIf="logged" mat-menu-item class="action" (click)="logout()" type="menu ">
-                  <mat-icon class="icon ">delete_forever</mat-icon>            <span>Log in</span>
-              </button>
-
-                <button *ngIf="!logged" mat-menu-item class="action" (click)="login()" type="menu">
-                  <mat-icon class="icon ">delete_forever</mat-icon>            <span>Log out</span>
-             </button>
-                </ul>
-                <a class="button-collapse " href="# " data-activates="nav-mobile "><i class="mdi-navigation-menu "></i
+        <div>
+            <button
+            mat-menu-item
+            class="action"
+            [matMenuTriggerFor]="menuApp"
+            type="menu"
+          >
+            <mat-icon class=" icon ">apps</mat-icon><span>App</span>
+          </button>
+          <mat-menu #menuApp="matMenu">
+            <button
+              mat-menu-item
+              class="btn btn-outline-primary action"
+              type="menu"
+              routerLink="home"
+            >
+              <mat-icon class="icon">group</mat-icon>
+              <span>Voluntários</span>
+            </button>
+            <button
+              mat-menu-item
+              class="btn btn-outline-primary action"
+              type="menu"
+            >
+              <mat-icon class="icon">pets</mat-icon>
+              <span>Pets</span>
+            </button>
+            <button
+              mat-menu-item
+              class="btn btn-outline-primary action"
+              type="menu"
+            >
+              <mat-icon class="icon">control_camera</mat-icon>
+              <span>Pontos de Apoio</span>
+            </button>
+            <button
+              mat-menu-item
+              class="btn btn-outline-primary action"
+              type="menu"
+            >
+              <mat-icon class="icon">control_camera</mat-icon>
+              <span>Pet Friendly</span>
+            </button>
+          </mat-menu>
+          <button
+            *ngIf="!logged"
+            mat-menu-item
+            class="action "
+            (click)="logout()"
+            type="menu "
+          >
+            <mat-icon class="icon ">touch_app</mat-icon><span>Log in</span>
+          </button>
+          <button
+            *ngIf="logged"
+            mat-menu-item
+            class="action "
+            (click)="login()"
+            type="menu "
+          >
+            <mat-icon class="icon ">exit_to_app</mat-icon><span>Log out</span>
+          </button>
+        </div>
+        <a class="button-collapse " href="# " data-activates="nav-mobile "
+          ><i class="mdi-navigation-menu "></i
         ></a>
             </div>
         </div>

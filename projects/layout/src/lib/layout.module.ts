@@ -8,9 +8,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'environments/environment';
 import { MenuModule, MenuComponent } from 'projects/menu/src/public-api'; 
+import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [LayoutComponent, FooterComponent, HeaderComponent, PageNotFoundComponent, MenuComponent],
+  declarations: [LayoutComponent, FooterComponent, HeaderComponent, PageNotFoundComponent],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

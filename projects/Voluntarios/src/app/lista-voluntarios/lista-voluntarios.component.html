@@ -1,66 +1,57 @@
 <div class="row">
-   <div class="col-md-4 offset-md-1">
-     <div class="input-group">
-       <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" placeholder="Pesquisar pelo nome..." (keyup)="searchByName()">
-       <div class="input-group-append">
-         <span class="input-group-text"><ion-icon class="icon" name="search"></ion-icon></span>
-       </div>
-     </div>
-   </div>
-   <div class="col-md-6 filter-by-age">
-     <div class="row">
-       <div class="col-md-auto title">
-         <span>Filtrar pela idade (mais velho que):</span>
-       </div>
-       <div class="col">
-         <span>0 </span>
-         <mat-slider
-           class="age-slider"
-           max="100"
-           min="0"
-           step="1"
-           thumbLabel="true"
-           (ngModel)="ageValue"
-           (change)="rangeChange($event)">
-         </mat-slider>
-         <span> 100</span>
-       </div>
-     </div>
-   </div>
- </div>
- 
- <div class="list-group users-list">
-   <div *ngFor="let voluntario of voluntarios" class="list-group-item list-group-item-action flex-column align-items-start">
-     <div class="row">
-       <div class="col col-md-2 image-col">
-         <img class="image" [src]="voluntario.payload.doc.data().avatar">
-       </div>
-       <div class="col col-md-8 text-col">
-         <h5 class="mb-1">{{voluntario.payload.doc.data().nome}} {{voluntario.payload.doc.data().sobrenome}}</h5>
-         <small>Idade: {{voluntario.payload.doc.data().idade}}</small>
-       </div>
-       <div class="col col-md-2 actions-col">
-        <button mat-icon-button [matMenuTriggerFor]="menuVoluntario" aria-label="Gerencia do Voluntário">
+    <div class="col-md-4 offset-md-1">
+        <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" placeholder="Pesquisar pelo nome..." (keyup)="searchByName()">
+            <div class="input-group-append">
+                <span class="input-group-text"><ion-icon class="icon" name="search"></ion-icon></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 filter-by-age">
+        <div class="row">
+            <div class="col-md-auto title">
+                <span>Filtrar pela idade (mais velho que):</span>
+            </div>
+            <div class="col">
+                <span>0 </span>
+                <mat-slider class="age-slider" max="100" min="0" step="1" thumbLabel="true" (ngModel)="ageValue" (change)="rangeChange($event)">
+                </mat-slider>
+                <span> 100</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="list-group users-list">
+    <div *ngFor="let voluntario of voluntariosDocRef" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+            <div class="col col-md-2 image-col">
+                <img class="image" [src]="voluntario.payload.doc.data().avatar">
+            </div>
+            <div class="col col-md-8 text-col">
+                <h5 class="mb-1">{{voluntario.payload.doc.data().nome}} {{voluntario.payload.doc.data().sobrenome}}</h5>
+                <small>Idade: {{voluntario.payload.doc.data().idade}}</small>
+            </div>
+            <div class="col col-md-2 actions-col">
+                <button mat-icon-button [matMenuTriggerFor]="menuVoluntario" aria-label="Gerencia do Voluntário">
           <mat-icon>more_vert</mat-icon>
  <mat-menu #menuVoluntario="matMenu">
   <button mat-menu-item class="btn btn-outline-primary action" (click)="viewDetails(voluntario)" type="button">
     <mat-icon class="icon">edit</mat-icon>
     <span>Editar</span>
   </button>
-  <button mat-menu-item class="btn btn-outline-primary action" (click)="delete(voluntario)" type="button">
+                <button mat-menu-item class="btn btn-outline-primary action" (click)="delete(voluntario)" type="button">
     <mat-icon class="icon">delete_forever</mat-icon>
     <span>Remover</span>
   </button>
-  <button mat-menu-item class="btn btn-outline-primary action" (click)="editRules(voluntario)" type="button">
+                <button mat-menu-item class="btn btn-outline-primary action" (click)="editRoles(voluntario)" type="button">
     <mat-icon class="icon">recent_actors</mat-icon>
     <span>Adicionar Papeis</span>
   </button>
-  
-</mat-menu>
-        </button>
-       </div>
-     </div>
-   </div>
- </div>
 
- 
+                </mat-menu>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

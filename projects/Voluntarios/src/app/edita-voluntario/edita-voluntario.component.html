@@ -1,18 +1,14 @@
 <div class="edit-page">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">
-                Editar Voluntário
-            </li>
+            <li class="breadcrumb-item active" aria-current="page">Editar Voluntário</li>
         </ol>
     </nav>
     <div class="page-content">
         <div class="row">
             <div class="col col-md-4">
                 <img class="img-avatar" [src]="voluntario.avatar" />
-                <button mat-stroked-button class="change-img-button" color="primary" (click)="openDialog()">
-          Trocar Avatar
-        </button>
+                <button mat-stroked-button class="change-img-button" color="primary" (click)="openDialog()">Trocar Avatar</button>
             </div>
             <div class="col col-md-8">
                 <form class="edit-form" [formGroup]="formVoluntario" novalidate (ngSubmit)="onSubmit(formVoluntario.value)">
@@ -41,30 +37,28 @@
                 ">{{ validation.message }}</mat-error>
                         </ng-container>
                     </div>
-
+                    <div class="form-group">
+                        <mat-form-field class="input-style">
+                            <input matInput type="email" placeholder="Email" class="form-control" formControlName="email" />
+                        </mat-form-field>
+                        <ng-container *ngFor="let validation of validationMessages.email">
+                            <mat-error *ngIf="formVoluntario.get('email').hasError(validation.type) && (formVoluntario.get('email').dirty || formVoluntario.get('email').touched) ">{{ validation.message }}</mat-error>
+                        </ng-container>
+                    </div>
                     <div class="form-group">
                         <mat-form-field class="input-style">
                             <input matInput type="number" min="0" max="100" placeholder="Idade" class="form-control" formControlName="idade" />
                         </mat-form-field>
                         <ng-container *ngFor="let validation of validationMessages.idade">
-                            <mat-error *ngIf="
-                  formVoluntario.get('idade').hasError(validation.type) &&
-                  (formVoluntario.get('idade').dirty ||
-                    formVoluntario.get('idade').touched)
-                ">{{ validation.message }}</mat-error>
+                            <mat-error *ngIf=" formVoluntario.get('idade').hasError(validation.type) && (formVoluntario.get('idade').dirty || formVoluntario.get('idade').touched)">{{ validation.message }}</mat-error>
                         </ng-container>
                     </div>
-
                     <div class="row submit-button-container">
                         <div class="col-md-4">
-                            <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="!formVoluntario.valid">
-                Salvar
-              </button>
+                            <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="!formVoluntario.valid">Salvar</button>
                         </div>
                         <div class="col-md-4">
-                            <button mat-raised-button class="delete-button" color="warn" type="button" (click)="delete()">
-                Remover
-              </button>
+                            <button mat-raised-button class="delete-button" color="warn" type="button" (click)="delete() ">Remover</button>
                         </div>
                     </div>
                 </form>

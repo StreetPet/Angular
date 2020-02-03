@@ -3,12 +3,9 @@ import { MenuComponent } from './menu.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatIcon, MatIconModule, MatMenuModule } from '@angular/material';
 
-
-
 @NgModule({
-  declarations: [MenuComponent, MatIcon, NgIf],
+  declarations: [MenuComponent],
   imports: [
-    NgModule, 
     MatMenuModule,
     CommonModule,
     MatIconModule
