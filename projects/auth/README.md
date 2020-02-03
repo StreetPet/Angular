@@ -1,24 +1,12 @@
-# Auth
+Auth
+====
+
+Biblioteca Geral para Autenticação dos usuários do Sistema StreetPet.
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
 
-## Code scaffolding
+Esta biblioteca terá todos componentes e serviços necessários para autenticação dos usuários, ela não irá distinguir qual sistema está sendo usado, sua função é abstrarir ao máximo o processo de Autenteticação e Autorização.
 
-Run `ng generate component component-name --project auth` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project auth`.
-> Note: Don't forget to add `--project auth` or else it will be added to the default project in your `angular.json` file. 
+O Repositório AngularEntities está diretamente ligado a ela para fornecer as entidades Visitante e Avatar. Veja que neste nível a Entidade Voluntário é apenas Visitante, sendo sendo usado nela.
 
-## Build
-
-Run `ng build auth` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build auth`, go to the dist folder `cd dist/auth` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test auth` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Os Serviços definidos no Repositório AngularEntities usará esta biblitoeca para autenticar e autorizar ações sobre as entidades. Esta referência cruzada me preocupa, sugestões são bem vindas
