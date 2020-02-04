@@ -18,12 +18,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'environments/environment';
-import { PageNotFoundComponent } from 'projects/layout/src/lib/404/404.component';
 import { EditaPapeisVoluntarioComponent } from './edita-papeis-voluntario/edita-papeis-voluntario.component';
 import { VoluntarioResolver } from './utils/voluntario-resolver';
 import { ConfirmaRemocaoComponent } from './confirma-remocao/confirma-remocao.component';
 import { AuthModule } from 'projects/auth/src/public-api';
 import { CommonModule } from '@angular/common';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthRoutingModule } from 'projects/auth/src/lib/auth.routing';
 
 @NgModule({
   declarations: [
@@ -36,11 +37,10 @@ import { CommonModule } from '@angular/common';
     EditaPapeisVoluntarioComponent,
     ConfirmaRemocaoComponent
   ],
-  entryComponents: [AvatarDialogComponent,ConfirmaRemocaoComponent],
+  entryComponents: [AvatarDialogComponent, ConfirmaRemocaoComponent],
   imports: [
     CommonModule,
     BrowserModule,
-    AppRoutingModule,
     LayoutModule,
     IonicModule.forRoot(),
     BrowserAnimationsModule,
@@ -55,9 +55,20 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AuthModule
+    AuthModule,
+    AppRoutingModule,
+    AuthRoutingModule
   ],
-  providers: [VoluntarioResolver],
+  providers: [
+    VoluntarioResolver,
+    {
+      provide: 'externalUrlRedirectResolver',
+      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
+      {
+          window.location.href = (route.data as any).externalUrl;
+      }
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

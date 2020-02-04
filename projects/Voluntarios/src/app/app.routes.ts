@@ -13,9 +13,11 @@ import { SignInComponent } from 'projects/auth/src/lib/sign-in/sign-in.component
 import { VerifyEmailComponent } from 'projects/auth/src/lib/verify-email/verify-email.component';
 import { SecureInnerPagesGuard } from 'projects/auth/src/lib/secure-inner-pages.guard';
 import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
+import { AuthService } from 'projects/auth/src/public-api';
 
 const routes: Routes = [
-  { path: '', component: ListaVoluntariosComponent, pathMatch: 'full'},
+  { path: '', component: ListaVoluntariosComponent, pathMatch: 'full' },
+  { path: 'home_voluntarios', component: ListaVoluntariosComponent },
   { path: 'home', component: ListaVoluntariosComponent },
   { path: 'list', component: ListaVoluntariosComponent },
   { path: 'add', component: AdicionaVoluntarioComponent },
@@ -31,13 +33,13 @@ const routes: Routes = [
       data: VoluntarioResolver
     }
   },
-
-  { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
-  
+/*
+  { path: AuthService.SIGN_IN_ROUTER_NAME, component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
+  { path: AuthService.REGISTER_USER_ROUTER_NAME, component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
+  { path: AuthService.DASHBOARD_ROUTER_NAME, component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: AuthService.FORGOT_PASSWORD_ROUTER_NAME, component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
+  { path: AuthService.VERIFY_EMAIL_ADDRESS_ROUTER_NAME, component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
+*/  
   { path: '**', component: PageNotFoundComponent }
 ];
 
