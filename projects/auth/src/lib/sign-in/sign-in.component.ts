@@ -22,4 +22,11 @@ export class SignInComponent implements OnInit {
     return this.authService.googleAuth();
   }
 
+  public facebookAuth(): Promise<void>{
+    return this.authService.facebookAuth();
+  }
+
+  public githubAuth(): Promise<void>{
+    return this.authService.githubAuth();
+  }
 }

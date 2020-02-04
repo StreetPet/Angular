@@ -1,76 +1,52 @@
 <div class="navbar-fixed">
-    <nav class="darken-2 waves-effect waves-light">
-        <div class="nav-wrapper">
-            <div class="container">
-                <a internal href="/" class="brand-logo"><i class="mdi-communication-chat"></i> Voluntários</a
-        >
-        <div>
-            <button
-            mat-menu-item
-            class="action"
-            [matMenuTriggerFor]="menuApp"
-            type="menu"
-          >
-            <mat-icon class=" icon ">apps</mat-icon><span>App</span>
+  <nav class="darken-2 waves-effect waves-light">
+    <div class="nav-wrapper">
+      <div class="container">
+
+        <mat-grid-list cols="8">
+          <mat-grid-tile [colspan]="2"><a internal class="brand-logo" mat-button routerLink="homeSite"><i class="mdi-communication-chat"></i>
+              Voluntários</a>
+          </mat-grid-tile>
+          <mat-grid-tile>&nbsp;
+          </mat-grid-tile>
+          <mat-grid-tile> <button mat-menu-item class="action" [matMenuTriggerFor]="menuApp" type="menu">
+              <mat-icon class=" icon ">apps</mat-icon><span>App</span>
+            </button>
+          </mat-grid-tile>
+
+          <mat-grid-tile>  <a mat-button routerLink="Blogs">Blogs</a>
+          </mat-grid-tile>
+          <mat-grid-tile>  <a mat-button routerLink="About">Sobre Nós</a>
+          </mat-grid-tile>
+
+          <mat-grid-tile> <button *ngIf="!isLoggedIn" mat-menu-item class="action " (click)="login()" type="menu ">
+              <mat-icon class="icon ">touch_app</mat-icon><span>Log in</span>
+            </button>
+          </mat-grid-tile>
+          <mat-grid-tile> <button *ngIf="isLoggedIn" mat-menu-item class="action " (click)="logout()" type="menu ">
+              <mat-icon class="icon ">exit_to_app</mat-icon><span>Log out</span>
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-menu #menuApp="matMenu">
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu" routerLink="home_voluntarios">
+            <mat-icon class="icon">group</mat-icon>
+            <span>Voluntários</span>
           </button>
-          <mat-menu #menuApp="matMenu">
-            <button
-              mat-menu-item
-              class="btn btn-outline-primary action"
-              type="menu"
-              routerLink="home"
-            >
-              <mat-icon class="icon">group</mat-icon>
-              <span>Voluntários</span>
-            </button>
-            <button
-              mat-menu-item
-              class="btn btn-outline-primary action"
-              type="menu"
-            >
-              <mat-icon class="icon">pets</mat-icon>
-              <span>Pets</span>
-            </button>
-            <button
-              mat-menu-item
-              class="btn btn-outline-primary action"
-              type="menu"
-            >
-              <mat-icon class="icon">control_camera</mat-icon>
-              <span>Pontos de Apoio</span>
-            </button>
-            <button
-              mat-menu-item
-              class="btn btn-outline-primary action"
-              type="menu"
-            >
-              <mat-icon class="icon">control_camera</mat-icon>
-              <span>Pet Friendly</span>
-            </button>
-          </mat-menu>
-          <button
-            *ngIf="!logged"
-            mat-menu-item
-            class="action "
-            (click)="logout()"
-            type="menu "
-          >
-            <mat-icon class="icon ">touch_app</mat-icon><span>Log in</span>
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu" routerLink="home_pets">
+            <mat-icon class="icon">pets</mat-icon>
+            <span>Pets</span>
           </button>
-          <button
-            *ngIf="logged"
-            mat-menu-item
-            class="action "
-            (click)="login()"
-            type="menu "
-          >
-            <mat-icon class="icon ">exit_to_app</mat-icon><span>Log out</span>
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu" routerLink="home_pontos_apoios">
+            <mat-icon class="icon">control_camera</mat-icon>
+            <span>Pontos de Apoio</span>
           </button>
-        </div>
-        <a class="button-collapse " href="# " data-activates="nav-mobile "
-          ><i class="mdi-navigation-menu "></i
-        ></a>
-            </div>
-        </div>
-    </nav>
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu"> routerLink="home_petfriendly"
+            <mat-icon class="icon">control_camera</mat-icon>
+            <span>Pet Friendly</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </nav>
 </div>

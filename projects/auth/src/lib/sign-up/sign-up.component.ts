@@ -19,6 +19,9 @@ export class SignUpComponent implements OnInit {
   facebookAuth(): Promise<void>{
     return this.authService.facebookAuth();
   }
+  githubAuth(): Promise<void>{
+    return this.authService.githubAuth();
+  }
   signUp(email:string, password:string): Promise<void>{
     return this.authService.signUp(email, password);
   }

@@ -13,10 +13,20 @@ import { SignInComponent } from 'projects/auth/src/lib/sign-in/sign-in.component
 import { VerifyEmailComponent } from 'projects/auth/src/lib/verify-email/verify-email.component';
 import { SecureInnerPagesGuard } from 'projects/auth/src/lib/secure-inner-pages.guard';
 import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
+import { AuthService } from 'projects/auth/src/public-api';
 
 const routes: Routes = [
-  { path: '', component: ListaVoluntariosComponent, pathMatch: 'full'},
+  {
+    path: 'home_voluntarios',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   { path: 'home', component: ListaVoluntariosComponent },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   { path: 'list', component: ListaVoluntariosComponent },
   { path: 'add', component: AdicionaVoluntarioComponent },
   {
@@ -32,12 +42,6 @@ const routes: Routes = [
     }
   },
 
-  { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
-  
   { path: '**', component: PageNotFoundComponent }
 ];
 

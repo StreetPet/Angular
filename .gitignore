@@ -3,5 +3,6 @@ dist
 environments/
 *.stackdump
 *.bck*
-passo a passo.md
-MyPets
+passo a passo.md 
+repositorios_de_apoio/
+*.log

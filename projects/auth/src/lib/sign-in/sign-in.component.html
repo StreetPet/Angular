@@ -24,9 +24,17 @@
             <!-- Calling GoogleAuth Api from AuthService -->
             <div class="formGroup">
                 <button type="button" class="btn googleBtn" (click)="googleAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Log in com o Google
-        </button>
+                    <ion-icon name="logo-googleplus"></ion-icon>
+                    Log in com o Google
+                </button>
+                <button type="button" class="btn facebookBtn" (click)="facebookAuth()">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    Log in com o Facebook
+                </button>
+                <button type="button" class="btn githubBtn" (click)="githubAuth()">
+                    <ion-icon name="logo-github"></ion-icon>
+                    Log in com o Github
+                </button>
             </div>
 
             <div class="forgotPassword">
