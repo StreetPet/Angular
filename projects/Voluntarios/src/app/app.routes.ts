@@ -16,9 +16,17 @@ import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
 import { AuthService } from 'projects/auth/src/public-api';
 
 const routes: Routes = [
-  { path: '', component: ListaVoluntariosComponent, pathMatch: 'full' },
-  { path: 'home_voluntarios', component: ListaVoluntariosComponent },
+  {
+    path: 'home_voluntarios',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   { path: 'home', component: ListaVoluntariosComponent },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   { path: 'list', component: ListaVoluntariosComponent },
   { path: 'add', component: AdicionaVoluntarioComponent },
   {
@@ -33,13 +41,7 @@ const routes: Routes = [
       data: VoluntarioResolver
     }
   },
-/*
-  { path: AuthService.SIGN_IN_ROUTER_NAME, component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: AuthService.REGISTER_USER_ROUTER_NAME, component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: AuthService.DASHBOARD_ROUTER_NAME, component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: AuthService.FORGOT_PASSWORD_ROUTER_NAME, component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: AuthService.VERIFY_EMAIL_ADDRESS_ROUTER_NAME, component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
-*/  
+
   { path: '**', component: PageNotFoundComponent }
 ];
 
