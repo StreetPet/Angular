@@ -11,6 +11,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from './auth.service';
 import { AuthRoutingModule } from './auth.routing';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuthRoutingModule } from './auth.routing';
     ForgotPasswordComponent, 
     VerifyEmailComponent],
   imports: [
+    IonicModule.forRoot(),
     AuthRoutingModule,
     CommonModule,
     AngularFireAuthModule

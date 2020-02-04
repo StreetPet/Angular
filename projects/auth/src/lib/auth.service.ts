@@ -1,6 +1,5 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, Provider } from '@angular/core';
 import { User, auth } from 'firebase/app';
-import { } from '@firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
@@ -104,13 +103,23 @@ export class AuthService {
     return (user !== null && user.emailVerified !== false) ? true : false;
   }
 
+  githubAuth(): Promise<void>{
+    const provider: auth.GithubAuthProvider = new auth.GithubAuthProvider();
+    return this.authLogin(provider);
+  }
   // Sign in with Google
   googleAuth(): Promise<void> {
-    return this.authLogin(new auth.GoogleAuthProvider());
+    const provider: auth.GoogleAuthProvider = new auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    return this.authLogin(provider);
   }
 
   facebookAuth(): Promise<void> {
-    return this.authLogin(new auth.FacebookAuthProvider());
+    const provider:auth.FacebookAuthProvider = new auth.FacebookAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    return this.authLogin(provider);
   }
 
   // Auth logic to run auth providers

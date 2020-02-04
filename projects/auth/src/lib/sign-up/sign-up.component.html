@@ -13,7 +13,8 @@
             </div>
 
             <div class="formGroup">
-                <input type="button" class="btn btnPrimary" value="Sign Up" (click)="signUp(visitanteEmail.value, visitantePwd.value)">
+                <input type="button" class="btn btnPrimary" value="Sign Up"
+                    (click)="signUp(visitanteEmail.value, visitantePwd.value)">
             </div>
 
             <div class="formGroup">
@@ -23,17 +24,17 @@
             <!-- Continue with Google -->
             <div class="formGroup">
                 <button type="button" class="btn googleBtn" (click)="googleAuth()">
-           <i class="fab fa-google-plus-g"></i>
-           Continue com o Google
-         </button>
-            </div>
-
-            <!-- Continue with Facebook -->
-            <div class="formGroup">
+                    <ion-icon name="logo-googleplus"></ion-icon>
+                    Log in com o Google
+                </button>
                 <button type="button" class="btn facebookBtn" (click)="facebookAuth()">
-           <i class="fab fa-facebook"></i>
-           Continue com o Facebook
-         </button>
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    Log in com o Facebook
+                </button>
+                <button type="button" class="btn githubBtn" (click)="githubAuth()">
+                    <ion-icon name="logo-github"></ion-icon>
+                    Log in com o Github
+                </button>
             </div>
         </div>
 
