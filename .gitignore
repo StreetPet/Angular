@@ -5,3 +5,4 @@ environments/
 *.bck*
 passo a passo.md 
 repositorios_de_apoio/
+*.log
