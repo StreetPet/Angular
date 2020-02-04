@@ -19,29 +19,29 @@
           <mat-grid-tile>  <a mat-button routerLink="About">Sobre Nós</a>
           </mat-grid-tile>
 
-          <mat-grid-tile> <button *ngIf="!logged" mat-menu-item class="action " (click)="logout()" type="menu ">
+          <mat-grid-tile> <button *ngIf="!isLoggedIn" mat-menu-item class="action " (click)="login()" type="menu ">
               <mat-icon class="icon ">touch_app</mat-icon><span>Log in</span>
             </button>
           </mat-grid-tile>
-          <mat-grid-tile> <button *ngIf="logged" mat-menu-item class="action " (click)="login()" type="menu ">
+          <mat-grid-tile> <button *ngIf="isLoggedIn" mat-menu-item class="action " (click)="logout()" type="menu ">
               <mat-icon class="icon ">exit_to_app</mat-icon><span>Log out</span>
             </button>
           </mat-grid-tile>
         </mat-grid-list>
         <mat-menu #menuApp="matMenu">
-          <button mat-menu-item class="btn btn-outline-primary action" type="menu" routerLink="home">
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu" routerLink="home_voluntarios">
             <mat-icon class="icon">group</mat-icon>
             <span>Voluntários</span>
           </button>
-          <button mat-menu-item class="btn btn-outline-primary action" type="menu">
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu" routerLink="home_pets">
             <mat-icon class="icon">pets</mat-icon>
             <span>Pets</span>
           </button>
-          <button mat-menu-item class="btn btn-outline-primary action" type="menu">
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu" routerLink="home_pontos_apoios">
             <mat-icon class="icon">control_camera</mat-icon>
             <span>Pontos de Apoio</span>
           </button>
-          <button mat-menu-item class="btn btn-outline-primary action" type="menu">
+          <button mat-menu-item class="btn btn-outline-primary action" type="menu"> routerLink="home_petfriendly"
             <mat-icon class="icon">control_camera</mat-icon>
             <span>Pet Friendly</span>
           </button>

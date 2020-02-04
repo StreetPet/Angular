@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'projects/auth/src/public-api';
 
 @Component({
   selector: 'lib-menu',
@@ -7,22 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService:AuthService,private router: Router) { }
 
   ngOnInit() {
   }
 
-  get logged(): boolean {
-    return false;
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn;
   }
 
-  public login(): Promise<void> {
-    console.log("Clicadono Login");
-    return Promise.resolve();
+  public login(): Promise<boolean> {
+    console.log("Clicando no Login");
+    return this.authService.signIn();
   }
 
   public logout(): Promise<void> {
-    console.log("Clicadono Logout");
-    return Promise.resolve();
+    console.log("Clicando no Logout");
+    return this.authService.signOut();
   }
 }
