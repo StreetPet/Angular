@@ -3,12 +3,17 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
 
+export interface IDashboardComponent{
+
+  visitanteData: User;
+  signOut(): Promise<void>;
+}
 @Component({
   selector: 'lib-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements IDashboardComponent, OnInit{
 
   constructor(
     private authService: AuthService,
