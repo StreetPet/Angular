@@ -284,7 +284,7 @@
                 "jekyll": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "aot": true,
+                        "aot": false,
                         "sourceMap": false,
                         "optimization": true,
                         "buildOptimizer": true,
