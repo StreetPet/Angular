@@ -7,17 +7,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { AuthServiceLocator } from './auth.service';
 
-export class AuthServiceLocator{
-  static _injector:Injector;
-   
-  public static get injector():Injector{
-    return AuthServiceLocator._injector;
-  }
-  
-  private constructor(){}
-
-}
 @NgModule({
   declarations: [
     SignInComponent,

@@ -1,10 +1,21 @@
-import { Injectable, NgZone, } from '@angular/core';
+import { Injectable, NgZone, Injector, } from '@angular/core';
 import { User, auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router, } from "@angular/router";
 import { Visitantes as Visitante } from 'projects/entities/src/lib/visitantes/visitantes';
 import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME, SIGN_IN_ROUTER_NAME } from './auth-routing.names';
+
+export class AuthServiceLocator{
+  static _injector:Injector;
+   
+  public static get injector():Injector{
+    return AuthServiceLocator._injector;
+  }
+  
+  private constructor(){}
+
+}
 
 @Injectable({
   providedIn: 'root'
