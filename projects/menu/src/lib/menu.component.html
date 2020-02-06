@@ -4,7 +4,8 @@
       <div class="container">
 
         <mat-grid-list cols="8">
-          <mat-grid-tile [colspan]="2"><a internal class="brand-logo" mat-button routerLink="homeSite"><i class="mdi-communication-chat"></i>
+          <mat-grid-tile [colspan]="2"><a internal class="brand-logo" mat-button routerLink="homeSite"><i
+                class="mdi-communication-chat"></i>
               Voluntários</a>
           </mat-grid-tile>
           <mat-grid-tile>&nbsp;
@@ -14,16 +15,14 @@
             </button>
           </mat-grid-tile>
 
-          <mat-grid-tile>  <a mat-button routerLink="Blogs">Blogs</a>
+          <mat-grid-tile> <a mat-button routerLink="Blogs">Blogs</a>
           </mat-grid-tile>
-          <mat-grid-tile>  <a mat-button routerLink="About">Sobre Nós</a>
+          <mat-grid-tile> <a mat-button routerLink="About">Sobre Nós</a>
           </mat-grid-tile>
-
           <mat-grid-tile> <button *ngIf="!isLoggedIn" mat-menu-item class="action " (click)="login()" type="menu ">
               <mat-icon class="icon ">touch_app</mat-icon><span>Log in</span>
             </button>
-          </mat-grid-tile>
-          <mat-grid-tile> <button *ngIf="isLoggedIn" mat-menu-item class="action " (click)="logout()" type="menu ">
+            <button *ngIf="isLoggedIn" mat-menu-item class="action " (click)="logout()" type="menu ">
               <mat-icon class="icon ">exit_to_app</mat-icon><span>Log out</span>
             </button>
           </mat-grid-tile>

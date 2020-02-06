@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { AppRoutingModule } from './app.routes';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicModule } from '@ionic/angular'; 
 import { LayoutModule } from 'projects/layout/src/lib/layout.module';
@@ -24,7 +24,7 @@ import { ConfirmaRemocaoComponent } from './confirma-remocao/confirma-remocao.co
 import { AuthModule } from 'projects/auth/src/public-api';
 import { CommonModule } from '@angular/common';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthRoutingModule } from 'projects/auth/src/lib/auth.routing';
+import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
 
 @NgModule({
   declarations: [

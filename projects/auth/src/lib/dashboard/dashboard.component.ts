@@ -1,24 +1,16 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'firebase';
+import { AuthService } from '../auth.service';
 
-export interface IDashboardComponent{
-
-  visitanteData: User;
-  signOut(): Promise<void>;
-}
 @Component({
   selector: 'lib-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements IDashboardComponent, OnInit{
+export class DashboardComponent implements OnInit{
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private ngZone: NgZone) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
   }

@@ -1,32 +1,40 @@
-import { NgModule } from '@angular/core';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { SecureInnerPagesGuard } from './secure-inner-pages.guard';
-import { AuthGuard } from './auth.guard';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { Injector, NgModule } from '@angular/core';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { IonicModule } from '@ionic/angular';
+import { AuthRoutingModule } from './auth-routing.module';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { AuthService } from './auth.service';
-import { AuthRoutingModule } from './auth.routing';
-import { IonicModule } from '@ionic/angular';
 
+export class AuthServiceLocator{
+  static _injector:Injector;
+   
+  public static get injector():Injector{
+    return AuthServiceLocator._injector;
+  }
+  
+  private constructor(){}
+
+}
 @NgModule({
   declarations: [
-    DashboardComponent, 
-    SignInComponent, 
-    SignUpComponent, 
-    ForgotPasswordComponent, 
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
     VerifyEmailComponent],
   imports: [
     IonicModule.forRoot(),
     AuthRoutingModule,
     CommonModule,
     AngularFireAuthModule
-  ],  
+  ],
   exports: [AuthRoutingModule]
 
 })
-export class AuthModule { }
+export class AuthModule {
+  constructor(private injector: Injector) {
+    AuthServiceLocator._injector = injector;
+  }
+}

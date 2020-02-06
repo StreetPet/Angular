@@ -1,23 +1,27 @@
-import { Injectable, NgZone, Provider } from '@angular/core';
+import { Injectable, NgZone, } from '@angular/core';
 import { User, auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from "@angular/router";
+import { Router, } from "@angular/router";
 import { Visitantes as Visitante } from 'projects/entities/src/lib/visitantes/visitantes';
+import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME, SIGN_IN_ROUTER_NAME } from './auth-routing.names';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  
+  private _dashboardModuleLoader:any;
+
+  getDashboardComponent()  {
+    console.log("***** getDashboardComponent **** ");
+    if (this._dashboardModuleLoader)
+      return this._dashboardModuleLoader;
+    else
+      return import('./dashboard/dashboard.module').then(mod => mod.DashboardModule);
+  }
 
   private _visitanteData: User;
-  public static readonly SIGN_IN_ROUTER_NAME: string = 'sign-in';
-  public static readonly SIGN_OUT_ROUTER_NAME: string = 'sign-out';
-  public static readonly REGISTER_USER_ROUTER_NAME: string = 'register-user';
-  public static readonly DASHBOARD_ROUTER_NAME: string = 'dashboard';
-  public static readonly FORGOT_PASSWORD_ROUTER_NAME: string = 'forgot-password';
-  public static readonly VERIFY_EMAIL_ADDRESS_ROUTER_NAME
-  : string = 'verify-email-address';
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -54,14 +58,14 @@ export class AuthService {
       return this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .then((result: firebase.auth.UserCredential) => {
           this.ngZone.run(() => {
-            this.router.navigate([AuthService.DASHBOARD_ROUTER_NAME]);
+            this.router.navigate([DASHBOARD_ROUTER_NAME]);
           });
           this.setVisitanteData(result.user);
         }).catch((error) => {
           window.alert(error.message)
         });
     else
-      return this.router.navigate([AuthService.SIGN_IN_ROUTER_NAME]);
+      return this.router.navigate([SIGN_IN_ROUTER_NAME]);
   }
 
   // Sign up with email/password
@@ -81,7 +85,7 @@ export class AuthService {
   sendVerificationMail(): Promise<void> {
     return this.afAuth.auth.currentUser.sendEmailVerification()
       .then(() => {
-        this.router.navigate([AuthService.VERIFY_EMAIL_ADDRESS_ROUTER_NAME]);
+        this.router.navigate([VERIFY_EMAIL_ADDRESS_ROUTER_NAME]);
       })
   }
 
@@ -103,7 +107,7 @@ export class AuthService {
     return (user !== null && user.emailVerified !== false) ? true : false;
   }
 
-  githubAuth(): Promise<void>{
+  githubAuth(): Promise<void> {
     const provider: auth.GithubAuthProvider = new auth.GithubAuthProvider();
     return this.authLogin(provider);
   }
@@ -116,7 +120,7 @@ export class AuthService {
   }
 
   facebookAuth(): Promise<void> {
-    const provider:auth.FacebookAuthProvider = new auth.FacebookAuthProvider();
+    const provider: auth.FacebookAuthProvider = new auth.FacebookAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
     return this.authLogin(provider);
@@ -127,7 +131,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate([AuthService.DASHBOARD_ROUTER_NAME]);
+          this.router.navigate([DASHBOARD_ROUTER_NAME]);
         })
         this.setVisitanteData(result.user);
       }).catch((error) => {
@@ -158,7 +162,7 @@ export class AuthService {
   signOut() {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('visistante');
-      this.router.navigate([AuthService.SIGN_IN_ROUTER_NAME]);
+      this.router.navigate([SIGN_IN_ROUTER_NAME]);
     })
   }
 
