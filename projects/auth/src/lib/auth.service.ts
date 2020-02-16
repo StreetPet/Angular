@@ -5,6 +5,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router, } from "@angular/router";
 import { Visitantes as Visitante } from 'projects/entities/src/lib/visitantes/visitantes';
 import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME, SIGN_IN_ROUTER_NAME } from './auth-routing.names';
+import { IDashboardComponent } from './dashboard/dashboard.component';
+import { IDashboardModule } from './dashboard/dashboard.module';
 
 export class AuthServiceLocator{
   static _injector:Injector;
@@ -17,22 +19,13 @@ export class AuthServiceLocator{
 
 }
 
+export type LoaderDashboardModule = () => Promise<IDashboardModule>;
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
-  private _dashboardModuleLoader:any;
-
-  getDashboardComponent()  {
-    console.log("***** getDashboardComponent **** ");
-    if (this._dashboardModuleLoader)
-      return this._dashboardModuleLoader;
-    else
-      return import('./dashboard/dashboard.module').then(mod => mod.DashboardModule);
-  }
-
-  private _visitanteData: User;
+  private _dashboardModuleLoader:LoaderDashboardModule;
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -43,8 +36,7 @@ export class AuthService {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((visitante: User | null) => {
-      if (visitante) {
-        this._visitanteData = visitante;
+      if (visitante) { 
         localStorage.setItem('visistante', JSON.stringify(this.visitanteData));
         JSON.parse(localStorage.getItem('visistante'));
       } else {
@@ -54,11 +46,16 @@ export class AuthService {
     })
   }
 
-  /**
-   * Metadados do visitante logado no sistema.
-   */
-  public get visitanteData(): User {
-    return this._visitanteData;
+  setDashboardModuleLoader(loader: LoaderDashboardModule) {
+    this._dashboardModuleLoader = loader;
+  }
+  
+  getDashboardComponent(): Promise<IDashboardModule>  {
+    console.log("***** getDashboardComponent **** ");
+    if (this._dashboardModuleLoader)
+      return this._dashboardModuleLoader();
+    else
+      return import('./dashboard/dashboard.module').then(mod => mod.DashboardModule);
   }
 
   /**
@@ -150,12 +147,21 @@ export class AuthService {
       })
   }
 
+  /**
+   * Metadados do visitante logado no sistema.
+   */
+  public get visitanteData(): User {
+    return JSON.parse(localStorage.getItem('visistante'));
+  }
+
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   setVisitanteData(user: User): Promise<any> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc<Visitante>(`users/${user.uid}`);
 
+    localStorage.setItem('visistante',JSON.stringify(user));
+    
     const userData: Visitante = {
       uid: user.uid,
       email: user.email,

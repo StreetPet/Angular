@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { CommonModule } from '@angular/common';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular'; 
 import { LayoutModule } from 'projects/layout/src/lib/layout.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { ListaVoluntariosComponent } from './lista-voluntarios/lista-voluntarios.component';
 import { MenuVoluntariosComponent } from './menu-voluntarios/menu-voluntarios.component';
 import { AdicionaVoluntarioComponent } from './adiciona-voluntario/adiciona-voluntario.component';
@@ -21,9 +23,7 @@ import { environment } from 'environments/environment';
 import { EditaPapeisVoluntarioComponent } from './edita-papeis-voluntario/edita-papeis-voluntario.component';
 import { VoluntarioResolver } from './utils/voluntario-resolver';
 import { ConfirmaRemocaoComponent } from './confirma-remocao/confirma-remocao.component';
-import { AuthModule } from 'projects/auth/src/public-api';
-import { CommonModule } from '@angular/common';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthModule, AuthService } from 'projects/auth/src/public-api';
 import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
 
 @NgModule({
@@ -39,6 +39,7 @@ import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
   ],
   entryComponents: [AvatarDialogComponent, ConfirmaRemocaoComponent],
   imports: [
+    RouterModule,
     CommonModule,
     BrowserModule,
     LayoutModule,
@@ -74,4 +75,8 @@ import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private authService: AuthService){
+    this.authService.setDashboardModuleLoader(()=>import('./dashboard-voluntario/dashboard-voluntario.module').then(m=>m.DashboardVoluntarioModule));
+  }
+ }
