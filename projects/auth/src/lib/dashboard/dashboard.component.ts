@@ -15,7 +15,7 @@ export interface IDashboardComponent{
 export class DashboardComponent implements IDashboardComponent,OnInit{
 
   constructor(
-    private authService: AuthService) { }
+    protected authService: AuthService) { }
 
   ngOnInit() {
   }
