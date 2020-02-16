@@ -32,7 +32,7 @@
            <div class="inner-adjust">
 
                <div class="pt-3 pb-2 mb-3 border-bottom">
-                   <h1 class="h2">Perfil do Visitante</h1>
+                   <h1 class="h2">Perfil do Voluntário</h1>
                </div>
                <!-- Show user data when logged in -->
                <div class=" row " *ngIf="visitanteData as User ">
@@ -49,6 +49,24 @@
                    </div>
                </div>
 
+               <div class="row" *ngIf="!isVoluntario">
+                  <p>Deseja realmente se tornar um voluntário?</p>
+                  <p>Clique no botão abaixo para confirmar seu desejo, mas antes marque a caixa de seleção confirmando quê está ciênte das responsabilidades que está assumindo se tornando um voluntário do StreetPet.</p>
+                  <section class="">
+                  <mat-radio-group  [(ngModel)]="voluntariadoConfirmado">
+                  <mat-radio-button value="false">Nâo</mat-radio-button>&nbsp;
+                  <mat-radio-button  value="true">Sim</mat-radio-button>
+                  </mat-radio-group>
+                  </section>
+
+                  <button  class="action " (click)="tornarSeVoluntario()">
+                     <mat-icon class="icon ">exit_to_app</mat-icon><span>Tornar-se um voluntário.</span>
+                  </button>
+               </div>
+               <div class="row" *ngIf="voluntarioData as Voluntario">
+                  <app-listar-papeis-voluntario 
+                      ator="voluntarioData"></app-listar-papeis-voluntario>
+               </div>
            </div>
        </main>
 

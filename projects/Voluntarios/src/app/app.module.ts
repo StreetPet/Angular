@@ -20,7 +20,6 @@ import {MatIconModule} from '@angular/material/icon';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'environments/environment';
-import { EditaPapeisVoluntarioComponent } from './edita-papeis-voluntario/edita-papeis-voluntario.component';
 import { VoluntarioResolver } from './utils/voluntario-resolver';
 import { ConfirmaRemocaoComponent } from './confirma-remocao/confirma-remocao.component';
 import { AuthModule, AuthService } from 'projects/auth/src/public-api';
@@ -34,7 +33,6 @@ import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
     AdicionaVoluntarioComponent,
     EditaVoluntarioComponent,
     AvatarDialogComponent,
-    EditaPapeisVoluntarioComponent,
     ConfirmaRemocaoComponent
   ],
   entryComponents: [AvatarDialogComponent, ConfirmaRemocaoComponent],
