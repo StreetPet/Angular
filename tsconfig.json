@@ -48,6 +48,12 @@
       ],
       "google-analytics/*": [
         "dist/google-analytics/*"
+      ],
+      "utils": [
+        "dist/utils"
+      ],
+      "utils/*": [
+        "dist/utils/*"
       ]
     }
   },
