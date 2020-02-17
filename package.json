@@ -47,6 +47,15 @@
     "@types/jquery": "^3.3.31",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "firebase-tools": "^6.10.0",
+    "fuzzy": "^0.1.3",
+    "grunt": "^1.0.4",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-firebase": "git://github.com/StreetPet/grunt-firebase.git#start_v1.0.0",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -59,10 +68,6 @@
     "ts-node": "~7.0.0",
     "tsickle": "^0.37.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3",
-    "firebase-tools": "^6.10.0",
-    "fuzzy": "^0.1.3",
-    "inquirer": "^6.2.2",
-    "inquirer-autocomplete-prompt": "^1.0.1"
+    "typescript": "~3.5.3"
   }
 }
