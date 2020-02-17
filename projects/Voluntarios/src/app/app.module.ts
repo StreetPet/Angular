@@ -24,6 +24,7 @@ import { VoluntarioResolver } from './utils/voluntario-resolver';
 import { ConfirmaRemocaoComponent } from './confirma-remocao/confirma-remocao.component';
 import { AuthModule, AuthService } from 'projects/auth/src/public-api';
 import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
+import { GoogleAnalyticsComponent, GoogleAnalyticsModule } from 'projects/google-analytics/src/public-api';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
     AngularFirestoreModule,
     AuthModule,
     AppRoutingModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    GoogleAnalyticsModule
   ],
   providers: [
     VoluntarioResolver,
@@ -68,7 +70,7 @@ import { AuthRoutingModule } from 'projects/auth/src/lib/auth-routing.module';
       }
     }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, GoogleAnalyticsComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
