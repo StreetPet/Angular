@@ -70,7 +70,7 @@ import { GoogleAnalyticsComponent, GoogleAnalyticsModule } from 'projects/google
       }
     }
   ],
-  bootstrap: [AppComponent, GoogleAnalyticsComponent],
+  bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
