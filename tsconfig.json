@@ -42,6 +42,12 @@
       ],
       "menu/*": [
         "dist/menu/*"
+      ],
+      "google-analytics": [
+        "dist/google-analytics"
+      ],
+      "google-analytics/*": [
+        "dist/google-analytics/*"
       ]
     }
   },

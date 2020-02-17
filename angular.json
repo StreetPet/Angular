@@ -626,6 +626,41 @@
                     }
                 }
             }
+        },
+        "GoogleAnalytics": {
+            "projectType": "library",
+            "root": "projects/google-analytics",
+            "sourceRoot": "projects/google-analytics/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/google-analytics/tsconfig.lib.json",
+                        "project": "projects/google-analytics/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/google-analytics/src/test.ts",
+                        "tsConfig": "projects/google-analytics/tsconfig.spec.json",
+                        "karmaConfig": "projects/google-analytics/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/google-analytics/tsconfig.lib.json",
+                            "projects/google-analytics/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
         }
     },
     "defaultProject": "Voluntarios"
