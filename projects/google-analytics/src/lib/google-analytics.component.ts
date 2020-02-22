@@ -10,12 +10,11 @@ import { GoogleAnalyticsService } from './google-analytics.service';
 })
 export class GoogleAnalyticsComponent implements OnInit {
 
-  private _id: string = "";
+  // tslint:disable-next-line:variable-name
+  private _id: string;
 
   @Input()
   public set ga(id: string) {
-    console.log("definindo o ID");
-    console.log(id);
     this._id = id;
   }
 
@@ -23,7 +22,7 @@ export class GoogleAnalyticsComponent implements OnInit {
 
   ngOnInit() {
     this.service.loadScript(this._id).then(() => {
-      //https://developers.google.com/analytics/devguides/collection/gtagjs/screens
+      // https://developers.google.com/analytics/devguides/collection/gtagjs/screens
       this.router.events.subscribe(event => {
         if (event instanceof NavigationError) {
           console.log('Navigation Error');
@@ -33,9 +32,9 @@ export class GoogleAnalyticsComponent implements OnInit {
           console.log('Navigation Start');
         } else if (event instanceof NavigationEnd) {
           console.log('Navigation End');
-          (<any>window).gtag('config', this._id,
+          (<any> window).gtag('config', this._id,
             {
-              'page_path': event.urlAfterRedirects
+              page_path: event.urlAfterRedirects
             }
           );
         }

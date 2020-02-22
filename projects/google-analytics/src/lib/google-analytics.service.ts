@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 
 
-(<any>window).dataLayer = (<any>window).dataLayer || [];
-(<any>window).gtag = function () {
-  console.log(arguments);
-  (<any>window).dataLayer.push(arguments);
+(window as any).dataLayer = (window as any).dataLayer || [];
+// tslint:disable-next-line:only-arrow-functions
+(window as any).gtag = function () {
+  (window as any).dataLayer.push(arguments);
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleAnalyticsService {
-
-  
 
   public eventEmitter(
     eventName: string,
@@ -23,7 +21,7 @@ export class GoogleAnalyticsService {
 
     console.log('event');
 
-    (<any>window).gtag('event', eventName, {
+    (window as any).gtag('event', eventName, {
       eventCategory,
       eventLabel,
       eventAction,
@@ -31,21 +29,21 @@ export class GoogleAnalyticsService {
     })
   }
 
-  loadScript(id: string):Promise<void> {
+  loadScript(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      //https://stackoverflow.com/questions/45861526/load-js-script-on-component-level-not-at-startup/45917264#45917264
-      //https://stackoverflow.com/questions/44204417/dynamically-load-external-javascript-file-from-angular-component
-      const body = <HTMLDivElement>document.body;
+      // https://stackoverflow.com/questions/45861526/load-js-script-on-component-level-not-at-startup/45917264#45917264
+      // https://stackoverflow.com/questions/44204417/dynamically-load-external-javascript-file-from-angular-component
+      const body = document.body as HTMLDivElement;
       const script = document.createElement('script');
       script.innerHTML = '';
       script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
       script.async = false;
       script.defer = true;
-      script.onload = function () {
-        (<any>window).gtag('js', new Date());
+      script.onload = () => {
+        (window as any).gtag('js', new Date());
         resolve();
       };
-      script.onerror = function (error) {
+      script.onerror = (error) => {
         reject(error);
       }
       body.appendChild(script);
