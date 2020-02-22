@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
-import { UtilsComponent } from './utils.component';
-
-
 
 @NgModule({
-  declarations: [UtilsComponent],
-  imports: [
-  ],
-  exports: [UtilsComponent]
+  declarations: [],
+  imports: [],
+  exports: []
 })
 export class UtilsModule { }
