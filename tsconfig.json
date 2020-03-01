@@ -54,6 +54,12 @@
       ],
       "utils/*": [
         "dist/utils/*"
+      ],
+      "app-messages": [
+        "dist/app-messages"
+      ],
+      "app-messages/*": [
+        "dist/app-messages/*"
       ]
     }
   },
