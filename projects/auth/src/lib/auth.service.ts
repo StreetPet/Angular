@@ -3,7 +3,7 @@ import { User, auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router, } from "@angular/router";
-import { Visitantes as Visitante } from 'projects/entities/src/lib/visitantes/visitantes';
+import { Visitante } from 'projects/entities/src';
 import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME, SIGN_IN_ROUTER_NAME } from './auth-routing.names';
 import { IDashboardComponent } from './dashboard/dashboard.component';
 import { IDashboardModule } from './dashboard/dashboard.module';
