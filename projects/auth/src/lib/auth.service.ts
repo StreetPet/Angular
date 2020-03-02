@@ -15,6 +15,12 @@ export class AuthServiceLocator {
     return AuthServiceLocator._injector;
   }
 
+  public static set injector(injector: Injector){
+    if(injector == null) 
+      throw new Error('Não se pode definir o Injector como Nullo!');
+    this._injector = injector;
+  }
+
   private constructor() { }
 
 }

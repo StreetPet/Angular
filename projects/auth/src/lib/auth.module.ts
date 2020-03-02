@@ -26,6 +26,6 @@ import { AuthServiceLocator } from './auth.service';
 })
 export class AuthModule {
   constructor(private injector: Injector) {
-    AuthServiceLocator._injector = injector;
+    AuthServiceLocator.injector = injector;
   }
 }
