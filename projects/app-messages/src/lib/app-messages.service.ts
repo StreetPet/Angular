@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { AppMessagesComponent } from './app-messages.component';
-import { AppMessagesInternalService } from './app-messages-internal-service';
+import { FIFOMessagesBuffer, Message, MsgData, MsgType } from './fifo-message.buffer';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +11,28 @@ export class AppMessagesService {
   private _durationInSeconds: number;
 
   constructor(
-    private srv: AppMessagesInternalService,
+    private fifo: FIFOMessagesBuffer,
     private snackBar: MatSnackBar) {
 
     this._durationInSeconds = 5;
 
-    this.srv.subscribe((msg: string) => {
-      this.snackBar.open(msg, 'x', {
-        duration: this._durationInSeconds * 1000,
-      });
+    this.fifo.subscribeMsgInfo((msg: Message) => {
+      console.log(`Exibe Mensagem: ${msg}`);
+      if (msg === undefined) return;
+      if (typeof msg === 'string') {
+        if (msg === '') return;
+        this.snackBar.open(msg, 'X', {
+          duration: this._durationInSeconds * 1000,
+        });
+      } else {
+        console.log(JSON.stringify(msg));
+        if (msg.message === '') return;
+        msg = msg as MsgData;
+        this.snackBar.open(msg.message, 'X', {
+          verticalPosition: (msg.type !== 'info') ? 'top' : 'bottom',
+          duration: msg.duration ? msg.duration : this._durationInSeconds * 1000,
+        });
+      }
     });
   }
 
@@ -28,8 +40,17 @@ export class AppMessagesService {
     this._durationInSeconds = d;
   }
 
-  public addMsg(msg: string) {
-    console.log(`Adicionando Mensagem: ${msg}`);
-    this.srv.next(msg);
+  public addMsg(message: Message, type: MsgType = 'info') {
+    console.log(`Adicionando Mensagem: ${message}, do tipo ${type}`);
+    if (type === 'info')
+      this.fifo.addMessage(message);
+    else {
+      if (typeof message === 'string') {
+        this.fifo.addMessage({ message, type });
+      } else {
+        (message as MsgData).type = type;
+        this.fifo.addMessage(message);
+      }
+    }
   }
 }

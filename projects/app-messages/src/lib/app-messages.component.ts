@@ -1,36 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AppMessagesInternalService } from './app-messages-internal-service';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { FIFOMessagesBuffer, MsgData } from './fifo-message.buffer';
+import { MAT_SNACK_BAR_DATA } from '@angular/material';
 
 @Component({
   selector: 'lib-app-messages',
   template: `
-  <span class="app-msg">
+  <span [class]="class">
   {{msg}}
   </span>
   `,
   styles: [
-    `app-msg{
-      color: hotpink;
-    }`
+    'app-mesages.component.scss'
   ]
 })
-export class AppMessagesComponent implements OnInit, OnDestroy {
+export class AppMessagesComponent {
 
   msg: string;
-  subscription: Subscription;
+  class: string;
 
-  constructor(private srv: AppMessagesInternalService) { }
-
-  ngOnInit() {
-    this.subscription = this.srv.subscribe((msg: string) => {
-      console.log(`Componente recebeu mensagem: ${msg}`);
-      this.msg = msg;
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) this.subscription.unsubscribe();
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA) private data: MsgData,
+    private srv: FIFOMessagesBuffer) {
+    this.msg = this.data.message;
+    if (this.data.class !== undefined)
+      this.class = this.data.class;
+    else if (this.data.type === 'info')
+      this.class = 'app-msg-info';
+    else if (this.data.type === 'alert')
+      this.class = 'app-msg-alert';
+    else
+      this.class = 'app-msg';
   }
 
 }
