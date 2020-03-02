@@ -4,7 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Visitante } from 'projects/entities/src';
-import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME, SIGN_IN_ROUTER_NAME } from './auth-routing.names';
+import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME } from './auth-routing.names';
+import { SIGN_IN_ROUTER_NAME } from './auth-routing.names';
 import { IDashboardModule } from './dashboard/dashboard.module';
 
 export class AuthServiceLocator {
@@ -15,8 +16,8 @@ export class AuthServiceLocator {
     return AuthServiceLocator._injector;
   }
 
-  public static set injector(injector: Injector){
-    if(injector == null) 
+  public static set injector(injector: Injector) {
+    if (injector == null)
       throw new Error('Não se pode definir o Injector como Nullo!');
     this._injector = injector;
   }

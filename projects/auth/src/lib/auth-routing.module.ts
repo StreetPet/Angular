@@ -6,18 +6,29 @@ import { AuthGuard } from './auth.guard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { NgModule, Type, Inject, NgModuleFactory, Injector, NgModuleRef, ReflectiveInjector } from '@angular/core';
-import { SIGN_IN_ROUTER_NAME, REGISTER_USER_ROUTER_NAME, DASHBOARD_ROUTER_NAME, FORGOT_PASSWORD_ROUTER_NAME, VERIFY_EMAIL_ADDRESS_ROUTER_NAME } from './auth-routing.names';
-export { SIGN_IN_ROUTER_NAME, REGISTER_USER_ROUTER_NAME, DASHBOARD_ROUTER_NAME, FORGOT_PASSWORD_ROUTER_NAME, VERIFY_EMAIL_ADDRESS_ROUTER_NAME };
+import { SIGN_IN_ROUTER_NAME, REGISTER_USER_ROUTER_NAME } from './auth-routing.names';
+import { DASHBOARD_ROUTER_NAME, FORGOT_PASSWORD_ROUTER_NAME } from './auth-routing.names';
+import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME } from './auth-routing.names';
+import { NgModule } from '@angular/core';
+export { SIGN_IN_ROUTER_NAME, REGISTER_USER_ROUTER_NAME, DASHBOARD_ROUTER_NAME };
+export { FORGOT_PASSWORD_ROUTER_NAME, VERIFY_EMAIL_ADDRESS_ROUTER_NAME };
 
 const routes: Routes = [
 
-   { path: SIGN_IN_ROUTER_NAME, component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
-   { path: REGISTER_USER_ROUTER_NAME, component: SignUpComponent, canActivate: [SecureInnerPagesGuard] },
+   {
+      path: SIGN_IN_ROUTER_NAME,
+      component: SignInComponent,
+      canActivate: [SecureInnerPagesGuard]
+   },
+   {
+      path: REGISTER_USER_ROUTER_NAME,
+      component: SignUpComponent,
+      canActivate: [SecureInnerPagesGuard]
+   },
    {
       path: DASHBOARD_ROUTER_NAME,
-      loadChildren: ()=>{
-         console.log("****** loadChildren *******")
+      loadChildren: () => {
+         console.log('****** loadChildren *******')
          const comp = AuthServiceLocator.injector
             .get(AuthService).getDashboardComponent();
          console.log(comp);
@@ -25,8 +36,16 @@ const routes: Routes = [
       },
       canActivate: [AuthGuard]
    },
-   { path: FORGOT_PASSWORD_ROUTER_NAME, component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-   { path: VERIFY_EMAIL_ADDRESS_ROUTER_NAME, component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
+   {
+      path: FORGOT_PASSWORD_ROUTER_NAME,
+      component: ForgotPasswordComponent,
+      canActivate: [SecureInnerPagesGuard]
+   },
+   {
+      path: VERIFY_EMAIL_ADDRESS_ROUTER_NAME,
+      component: VerifyEmailComponent,
+      canActivate: [SecureInnerPagesGuard]
+   },
 
 ];
 
