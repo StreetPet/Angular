@@ -67,7 +67,6 @@
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",
-                            "node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "js/jquery.nicescroll.min.js",
                             "js/jquery.nicescroll.plus.js",
                             "js/velocity.min.js",
@@ -689,6 +688,41 @@
                         "tsConfig": [
                             "projects/utils/tsconfig.lib.json",
                             "projects/utils/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "AppMessages": {
+            "projectType": "library",
+            "root": "projects/app-messages",
+            "sourceRoot": "projects/app-messages/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/app-messages/tsconfig.lib.json",
+                        "project": "projects/app-messages/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/app-messages/src/test.ts",
+                        "tsConfig": "projects/app-messages/tsconfig.spec.json",
+                        "karmaConfig": "projects/app-messages/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/app-messages/tsconfig.lib.json",
+                            "projects/app-messages/tsconfig.spec.json"
                         ],
                         "exclude": [
                             "**/node_modules/**"
