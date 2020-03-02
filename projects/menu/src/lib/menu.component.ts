@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, DASHBOARD_ROUTER_NAME as DASHBOARD_ROUTER_NAME_LIB } from 'projects/auth/src/public-api';
+import { AuthService, DASHBOARD_ROUTER_NAME as DASHBOARD_ROUTER_NAME_LIB } from 'projects/auth/src';
 
 @Component({
   selector: 'lib-menu',
