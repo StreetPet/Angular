@@ -14,19 +14,19 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() { }
 
-  public signIn(email: string, password: string): Promise<void> {
+  public signIn(email: string, password: string): Promise<boolean | void> {
     return this.authService.signIn(email, password);
   }
 
-  public googleAuth(): Promise<void>{
+  public googleAuth(): Promise<void> {
     return this.authService.googleAuth();
   }
 
-  public facebookAuth(): Promise<void>{
+  public facebookAuth(): Promise<void> {
     return this.authService.facebookAuth();
   }
 
-  public githubAuth(): Promise<void>{
+  public githubAuth(): Promise<void> {
     return this.authService.githubAuth();
   }
 }

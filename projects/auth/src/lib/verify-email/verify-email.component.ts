@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { User } from 'firebase';
+import { Visitante } from 'projects/entities/src';
 
 @Component({
   selector: 'lib-verify-email',
@@ -14,9 +15,10 @@ export class VerifyEmailComponent implements OnInit {
   ngOnInit() {
   }
 
-  get visitanteData(): User {
-    return this.authService.visitanteData
+  get visitante(): Visitante {
+    return this.authService.visitante;
   }
+
   sendVerificationMail(): Promise<void> {
     return this.authService.sendVerificationMail();
   }

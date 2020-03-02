@@ -4,9 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent, IDashboardComponent } from './dashboard.component';
 
-export interface IDashboardModule{
-
-}
+export interface IDashboardModule { }
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -15,4 +13,4 @@ export interface IDashboardModule{
     DashboardRoutingModule
   ]
 })
-export class DashboardModule implements IDashboardModule{ }
+export class DashboardModule implements IDashboardModule { }

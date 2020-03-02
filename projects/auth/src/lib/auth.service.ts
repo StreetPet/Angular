@@ -7,6 +7,7 @@ import { Visitante } from 'projects/entities/src';
 import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME } from './auth-routing.names';
 import { SIGN_IN_ROUTER_NAME } from './auth-routing.names';
 import { IDashboardModule } from './dashboard/dashboard.module';
+import { AppMessagesService } from 'projects/app-messages/src';
 
 export class AuthServiceLocator {
   // tslint:disable-next-line: variable-name
@@ -36,16 +37,19 @@ export class AuthService {
   private _dashboardModuleLoader: LoaderDashboardModule;
 
   constructor(
-    public afs: AngularFirestore,   // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
-    public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    private afs: AngularFirestore,   // Inject Firestore service
+    private afAuth: AngularFireAuth, // Inject Firebase auth service
+    private msgSrv: AppMessagesService,
+    private router: Router,
+    private ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
-    /* Saving user data in localstorage when 
-    logged in and setting up null when logged out */
+    /* 
+     * Saving user data in localstorage when 
+     * logged in and setting up null when logged out 
+     * */
     this.afAuth.authState.subscribe((visitante: User | null) => {
       if (visitante) {
-        localStorage.setItem('visistante', JSON.stringify(this.visitanteData));
+        localStorage.setItem('visistante', JSON.stringify(this.visitante));
         JSON.parse(localStorage.getItem('visistante'));
       } else {
         localStorage.setItem('visistante', null);
@@ -70,7 +74,7 @@ export class AuthService {
   /**
    *  Sign in with email/password
    */
-  signIn(email: string = null, password: string = null): Promise<any> {
+  signIn(email: string = null, password: string = null): Promise<boolean | void> {
     if (email)
       return this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .then((result: firebase.auth.UserCredential) => {
@@ -79,7 +83,7 @@ export class AuthService {
           });
           this.setVisitanteData(result.user);
         }).catch((error) => {
-          window.alert(error.message)
+          this.msgSrv.addMsg(error.message, 'alert');
         });
     else
       return this.router.navigate([SIGN_IN_ROUTER_NAME]);
@@ -94,11 +98,13 @@ export class AuthService {
         this.sendVerificationMail();
         this.setVisitanteData(result.user);
       }).catch((error) => {
-        window.alert(error.message)
+        this.msgSrv.addMsg(error.message, 'alert');
       })
   }
 
-  // Send email verfificaiton when new user sign up
+  /**
+   * Send email verfificaiton when new user sign up
+   */
   sendVerificationMail(): Promise<void> {
     return this.afAuth.auth.currentUser.sendEmailVerification()
       .then(() => {
@@ -112,10 +118,10 @@ export class AuthService {
   forgotPassword(passwordResetEmail: string): Promise<void> {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        this.msgSrv.addMsg('Password reset email sent, check your inbox.');
       }).catch((error) => {
-        window.alert(error)
-      })
+        this.msgSrv.addMsg(error);
+      });
   }
 
   // Returns true when user is looged in and email is verified
@@ -143,7 +149,9 @@ export class AuthService {
     return this.authLogin(provider);
   }
 
-  // Auth logic to run auth providers
+  /**
+   *  Auth logic to run auth providers
+   */
   authLogin(provider: auth.AuthProvider): Promise<any> {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
@@ -152,22 +160,22 @@ export class AuthService {
         })
         this.setVisitanteData(result.user);
       }).catch((error) => {
-        window.alert(error)
-      })
+        this.msgSrv.addMsg(error.message, 'alert');
+      });
   }
 
   /**
    * Metadados do visitante logado no sistema.
    */
-  public get visitanteData(): User {
+  public get visitante(): Visitante {
     return JSON.parse(localStorage.getItem('visistante'));
   }
 
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setVisitanteData(user: User): Promise<any> {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc<Visitante>(`users/${user.uid}`);
+  setVisitanteData(user: User): Promise<void> {
+    const userRef: AngularFirestoreDocument<Visitante> = this.afs.doc<Visitante>(`users/${user.uid}`);
 
     localStorage.setItem('visistante', JSON.stringify(user));
 
@@ -184,8 +192,10 @@ export class AuthService {
     });
   }
 
-  // Sign out 
-  signOut() {
+  /**
+   * Sign Out User
+   */
+  signOut(): Promise<void> {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('visistante');
       this.router.navigate([SIGN_IN_ROUTER_NAME]);

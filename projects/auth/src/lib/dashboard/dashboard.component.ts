@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'firebase';
 import { AuthService } from '../auth.service';
+import { Visitante } from 'projects/entities/src';
 
-export interface IDashboardComponent{
-  visitanteData: User;
+export interface IDashboardComponent {
+  visitante: Visitante;
   signOut(): Promise<void>;
 }
 
@@ -12,7 +13,7 @@ export interface IDashboardComponent{
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements IDashboardComponent,OnInit{
+export class DashboardComponent implements IDashboardComponent, OnInit {
 
   constructor(
     protected authService: AuthService) { }
@@ -20,11 +21,11 @@ export class DashboardComponent implements IDashboardComponent,OnInit{
   ngOnInit() {
   }
 
-  public get visitanteData(): User {
-    return this.authService.visitanteData;
+  public get visitante(): Visitante {
+    return this.authService.visitante;
   }
 
-  public signOut(): Promise<void>{
+  public signOut(): Promise<void> {
     return this.authService.signOut();
   }
 
