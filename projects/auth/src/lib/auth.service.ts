@@ -2,20 +2,20 @@ import { Injectable, NgZone, Injector, } from '@angular/core';
 import { User, auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router, } from "@angular/router";
+import { Router } from '@angular/router';
 import { Visitante } from 'projects/entities/src';
 import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME, SIGN_IN_ROUTER_NAME } from './auth-routing.names';
-import { IDashboardComponent } from './dashboard/dashboard.component';
 import { IDashboardModule } from './dashboard/dashboard.module';
 
-export class AuthServiceLocator{
-  static _injector:Injector;
-   
-  public static get injector():Injector{
+export class AuthServiceLocator {
+  // tslint:disable-next-line: variable-name
+  private static _injector: Injector;
+
+  public static get injector(): Injector {
     return AuthServiceLocator._injector;
   }
-  
-  private constructor(){}
+
+  private constructor() { }
 
 }
 
@@ -25,7 +25,8 @@ export type LoaderDashboardModule = () => Promise<IDashboardModule>;
   providedIn: 'root'
 })
 export class AuthService {
-  private _dashboardModuleLoader:LoaderDashboardModule;
+  // tslint:disable-next-line: variable-name
+  private _dashboardModuleLoader: LoaderDashboardModule;
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -36,7 +37,7 @@ export class AuthService {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((visitante: User | null) => {
-      if (visitante) { 
+      if (visitante) {
         localStorage.setItem('visistante', JSON.stringify(this.visitanteData));
         JSON.parse(localStorage.getItem('visistante'));
       } else {
@@ -49,13 +50,14 @@ export class AuthService {
   setDashboardModuleLoader(loader: LoaderDashboardModule) {
     this._dashboardModuleLoader = loader;
   }
-  
-  getDashboardComponent(): Promise<IDashboardModule>  {
-    console.log("***** getDashboardComponent **** ");
+
+  getDashboardComponent(): Promise<IDashboardModule> {
+    console.log('***** getDashboardComponent ****');
     if (this._dashboardModuleLoader)
       return this._dashboardModuleLoader();
     else
-      return import('./dashboard/dashboard.module').then(mod => mod.DashboardModule);
+      return import('./dashboard/dashboard.module')
+        .then(mod => mod.DashboardModule);
   }
 
   /**
@@ -160,8 +162,8 @@ export class AuthService {
   setVisitanteData(user: User): Promise<any> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc<Visitante>(`users/${user.uid}`);
 
-    localStorage.setItem('visistante',JSON.stringify(user));
-    
+    localStorage.setItem('visistante', JSON.stringify(user));
+
     const userData: Visitante = {
       uid: user.uid,
       email: user.email,
@@ -180,7 +182,6 @@ export class AuthService {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('visistante');
       this.router.navigate([SIGN_IN_ROUTER_NAME]);
-    })
+    });
   }
-
 }
