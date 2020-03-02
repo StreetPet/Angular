@@ -1,6 +1,22 @@
 {
-  "name": "app-messages",
+  "name": "@streetpet/app-messages",
   "version": "0.0.2",
+  "homepage": "https://streetpet.github.io/AngularAppMessages",
+  "author": {
+    "name": "Carlos Delfino",
+    "url": "https://github.com/streetpet/"
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "contributors": [
+    {
+      "name": "Carlos Delfino",
+      "url": "https://carlosdelfino.github.io"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/streetpet/AngularAppMessages.git"
+  },
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"
