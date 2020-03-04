@@ -1,7 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Papel } from 'projects/entities/src';
+import { Papel, VoluntariosService, PapeisService } from 'projects/entities/src';
 import { ResultWaitPapel } from 'projects/entities/src';
 import { ListarPapeisVoluntarioComponent } from '../listar-papeis-voluntario/listar-papeis-voluntario.component';
+import { PapeisVoluntarioComponentBase } from '../papeis-voluntario-component-base';
+import { AppMessagesService } from 'projects/app-messages/src';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-editar-papeis-voluntario',
@@ -9,8 +12,31 @@ import { ListarPapeisVoluntarioComponent } from '../listar-papeis-voluntario/lis
   styleUrls: ['./editar-papeis-voluntario.component.scss']
 })
 export class EditarPapeisVoluntarioComponent
-  extends ListarPapeisVoluntarioComponent
+  extends PapeisVoluntarioComponentBase
   implements OnInit, OnDestroy {
+
+  constructor(
+    protected msgs: AppMessagesService,
+    protected voluntariosSrv: VoluntariosService,
+    protected papeisSrv: PapeisService,
+    protected route: ActivatedRoute) {
+
+    super(msgs, voluntariosSrv, papeisSrv);
+
+  }
+
+  ngOnInit() {
+    console.log(`EditarPapeisVoluntarioComponent.ngOnInit`);
+    super.ngOnInit();
+
+    this.subscriptions.push(this.route.data
+      .subscribe(routeData => {
+        this._voluntario = routeData.data;
+        if (this._voluntario) {
+          this.updateVoluntarioData(this._voluntario);
+        }
+      }));
+  }
 
   clickCheckPapel(p: Papel): boolean {
 
@@ -18,7 +44,7 @@ export class EditarPapeisVoluntarioComponent
     this.checkPapeis[p.uid].next(true);
 
     this.voluntariosSrv
-      .solicitaPapel(this.voluntario, p, (resultado: ResultWaitPapel) => {
+      .solicitaPapel(this._voluntario, p, (resultado: ResultWaitPapel) => {
         console.log(`Serviço respondeu ${resultado}`);
         if (resultado === 'aguardando') {
           this.waittingPapeis[p.uid].next(true);

@@ -1,28 +1,13 @@
-<!-- Top navigation -->
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <div class="navbar-brand col-sm-3 col-md-2 mr-0 pt-3 pb-2 mb-3 border-bottom">
-        <h2 class="h2">Perfil de {{(visitante.displayName) ? visitante.displayName : 'Visitante'}}</h2>
-        </div>
-</nav>
-
-<!-- Sidebar navigation -->
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="$visitante | async as visitanteData">
     <div class="row">
         <nav class="col-md-2 d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active">
-                            <mat-icon>account_box</mat-icon>Perfil do Voluntário
-                        </a>
-                    </li>
-                    <!-- Calling SignOut() Api from AuthService -->
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="signOut()">
-                            <mat-icon>exit_to_app</mat-icon>Log out
-                        </a>
-                    </li>
-                </ul>
+                <div class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                    <div class="navbar-brand col-sm-3 col-md-2 mr-0 pt-3 pb-2 mb-3 border-bottom">
+                        <h2 class="h2">Perfil de
+                            {{(visitanteData.displayName) ? visitanteData.displayName : 'Visitante'}}</h2>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -32,28 +17,28 @@
 
 
                 <!-- Show user data when logged in -->
-                <div class=" row " *ngIf="visitante">
+                <div class=" row ">
                     <div class="col-md-12 ">
                         <div class="media ">
                             <img class="align-self-start mr-5 img-thumbnail rounded-circle "
-                                src="{{(visitante.photoURL) ? visitante.photoURL : '/assets/dummy-user.png'}} "
-                                alt="{{visitante.displayName}} ">
+                                src="{{(visitanteData.photoURL) ? visitanteData.photoURL : '/assets/dummy-user.png'}} "
+                                alt="{{visitanteData.displayName}} ">
                             <div class="media-body ">
                                 <h1>Olá:
-                                    <strong>{{(visitante.displayName) ? visitante.displayName : 'Visitante'}}</strong>
+                                    <strong>{{(visitanteData.displayName) ? visitanteData.displayName : 'visitante'}}</strong>
                                 </h1>
-                                <p>ID do Visitante: <strong>{{visitante.uid}}</strong></p>
-                                <p>Email: <strong>{{visitante.email}}</strong></p>
-                                <p>Email Verificado: <strong>{{visitante.emailVerified}}</strong></p>
+                                <p>ID do visitante: <strong>{{visitanteData.uid}}</strong></p>
+                                <p>Email: <strong>{{visitanteData.email}}</strong></p>
+                                <p>Email Verificado: <strong>{{visitanteData.emailVerified}}</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row" *ngIf="voluntario; then listaPapeis; else confirmaVoluntariado">
+                <div mySpy class="row" *ngIf="$voluntario.getValue(); then listaPapeis; else confirmaVoluntariado">
                 </div>
                 <ng-template #listaPapeis>
-                    <app-listar-papeis-voluntario [voluntario]="voluntario">
+                    <app-listar-papeis-voluntario [voluntario]="$voluntario.getValue()">
                     </app-listar-papeis-voluntario>
                 </ng-template>
                 <ng-template #confirmaVoluntariado>
@@ -63,8 +48,11 @@
                         voluntário do StreetPet.</p>
                     <section class="">
                         <mat-radio-group [(ngModel)]="voluntariadoConfirmado">
-                            <mat-radio-button value="false">Nâo</mat-radio-button>&nbsp;
+                            &nbsp;
+                            <mat-radio-button value="false">Nâo</mat-radio-button>
+                            &nbsp;
                             <mat-radio-button value="true">Sim</mat-radio-button>
+                            , estou ciente!
                         </mat-radio-group>
                     </section>
 

@@ -4,7 +4,7 @@ import { VoluntariosService } from 'projects/entities/src/lib/voluntarios.servic
 import { Voluntario } from 'projects/entities/src/lib/voluntarios/voluntario';
 import { ConfirmaRemocaoComponent } from '../confirma-remocao/confirma-remocao.component';
 import { MatDialog } from '@angular/material';
-import { DocumentChangeAction } from '@angular/fire/firestore';
+import { Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-lista-voluntarios',
@@ -15,54 +15,63 @@ export class ListaVoluntariosComponent implements OnInit {
 
   ageValue: number = 0;
   searchValue: string = '';
-  voluntariosDocRef: Array<DocumentChangeAction<Voluntario>>;
-  age_filtered_items: Array<any>;
-  name_filtered_items: Array<any>;
+
+  // tslint:disable-next-line:variable-name
+  _voluntarios: Subject<Voluntario[]> = new Subject<Voluntario[]>();
+  // tslint:disable-next-line:variable-name
+  _voluntarios$: Observable<Voluntario[]>;
+
+  nameFilteredItems: Array<Voluntario>;
+  ageFilteredItems: Array<Voluntario>;
 
   constructor(
     public service: VoluntariosService,
     private router: Router,
     private dialog: MatDialog
-  ) { }
+  ) {
+    this._voluntarios$ = this._voluntarios.asObservable();
+  }
 
   ngOnInit() {
-    this.getData();
+    this.service.observeVoluntarios((voluntarios: Voluntario[]) => {
+      this._voluntarios.next(voluntarios);
+
+      this.ageFilteredItems = voluntarios;
+      this.nameFilteredItems = voluntarios;
+    });
   }
 
-  getData() {
-    this.service.getVoluntarios()
-      .subscribe((result: DocumentChangeAction<Voluntario>[]) => {
-        this.voluntariosDocRef = result;
-        this.age_filtered_items = result;
-        this.name_filtered_items = result;
-      })
+  get voluntarios$(): Observable<Voluntario[]> {
+    return this._voluntarios$;
   }
 
-  viewDetails(voluntario: DocumentChangeAction<Voluntario>) {
-    this.router.navigate(['/details/' + voluntario.payload.doc.id]);
+  viewDetails(voluntario: Voluntario) {
+    this.router.navigate(['/details/' + voluntario.uid]);
   }
 
-  editRoles(voluntario: DocumentChangeAction<Voluntario>) {
-    this.router.navigate(['/roles/' + voluntario.payload.doc.id]);
+  editRoles(voluntario: Voluntario) {
+    this.router.navigate(['/papeis/edit/' + voluntario.uid]);
   }
 
-  delete(voluntario: DocumentChangeAction<Voluntario>) {
+  delete(voluntario: Voluntario) {
     const dialogRef = this.dialog.open(ConfirmaRemocaoComponent, {
       width: '250px',
       data: voluntario
     });
 
-    dialogRef.afterClosed().subscribe((result:boolean) => {
-      console.log('The dialog was closed: '+result);
-      if (result) this.service.deleteVoluntario(voluntario.payload.doc.id)
-        .then(
-          res => {
-            this.router.navigate(['/']);
-          },
-          err => {
-            this.showErrorMessage(err);
-          }
-        )
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      console.log('The dialog was closed: ' + result);
+      if (result) {
+        this.service.deleteVoluntario(voluntario.uid)
+          .then(
+            res => {
+              this.router.navigate(['/']);
+            },
+            err => {
+              this.showErrorMessage(err);
+            }
+          );
+      }
     });
   }
 
@@ -76,27 +85,26 @@ export class ListaVoluntariosComponent implements OnInit {
 
   searchByName() {
     const value = this.searchValue.toLowerCase();
-    this.service.searchVoluntario(value)
-      .subscribe(result => {
-        this.name_filtered_items = result;
-        this.voluntariosDocRef = this.combineLists(result, this.age_filtered_items);
-      });
+    this.service.searchVoluntario(value, (result: Voluntario[]) => {
+      this.nameFilteredItems = result;
+      this._voluntarios.next(this.combineLists(result, this.ageFilteredItems));
+    });
   }
 
   rangeChange(event) {
-    this.service.searchVoluntarioPelaIdade(event.value)
-      .subscribe(result => {
-        this.age_filtered_items = result;
-        this.voluntariosDocRef = this.combineLists(result, this.name_filtered_items);
-      })
+    this.service.searchVoluntarioPelaIdade(event.value, (result: Voluntario[]) => {
+      this.ageFilteredItems = result;
+      this._voluntarios.next(this.combineLists(result, this.nameFilteredItems));
+    });
   }
 
-  combineLists(a, b) {
-    let result = [];
+  private combineLists(a: Voluntario[], b: Voluntario[]): Voluntario[] {
+    const result: Voluntario[] = [];
 
-    a.filter(x => {
-      return b.filter(x2 => {
-        if (x2.payload.doc.id == x.payload.doc.id) {
+    a.filter((x: Voluntario) => {
+      return b.filter((x2: Voluntario) => {
+        // releva se UID for nulo
+        if (x2.uid === null || x2.uid === null || x2.uid === x.uid) {
           result.push(x2);
         }
       });

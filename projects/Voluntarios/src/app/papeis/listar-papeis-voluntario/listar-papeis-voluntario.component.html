@@ -4,7 +4,7 @@
       <p>Os papeis selecionados abaixo são desempenhados pelo voluntario, os que são marcados com um traço, estão aguardando aprovação de um Administrador do Sistema.</p>
       <section class="papeis-section container-fluid row">
          <div class="col col-3" *ngFor="let papel of $papeis | async" >
-         <mat-checkbox class="col col-2" class="papeis-margin" [checked]="checkPapel(papel) | async" [indeterminate]="waittingPapel(papel)|async" (click)="clickCheckPapel(papel)" labelPosition="after"
+         <mat-checkbox class="col col-2" class="papeis-margin" [checked]="checkPapel(papel) | async" [indeterminate]="waittingPapel(papel)|async" (click)="false" labelPosition="after"
          [matTooltip]="papel.descricao" aria-readonly="true">
             {{papel.nome}}
          </mat-checkbox>
