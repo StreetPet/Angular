@@ -30,12 +30,8 @@ export class DashboardVoluntarioComponent
 
   }
 
-  get $voluntario(): Observable<Voluntario> {
-    return this._$voluntario;
-  }
-
-  get isVoluntario(): boolean {
-    return this._$voluntario.getValue() != null;
+  get voluntario(): Voluntario {
+    return this._$voluntario.getValue();
   }
 
   ngOnInit() {
@@ -53,7 +49,6 @@ export class DashboardVoluntarioComponent
               + ` Srv.observeVoluntario Voluntario: ${JSON.stringify(voluntario)}`);
 
             this._$voluntario.next(voluntario);
-
           });
 
       }
@@ -61,7 +56,10 @@ export class DashboardVoluntarioComponent
   }
 
   ngOnDestroy() {
+    if (this.subscriptionVoluntario)
+      this.subscriptionVoluntario.unsubscribe();
     super.ngOnDestroy();
+
   }
 
   public tornarSeVoluntario(): Promise<boolean> {

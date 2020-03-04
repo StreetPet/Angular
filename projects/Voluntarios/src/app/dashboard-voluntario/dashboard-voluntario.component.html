@@ -35,10 +35,10 @@
                     </div>
                 </div>
 
-                <div mySpy class="row" *ngIf="$voluntario.getValue(); then listaPapeis; else confirmaVoluntariado">
+                <div mySpy class="row" *ngIf="voluntario; then listaPapeis; else confirmaVoluntariado">
                 </div>
                 <ng-template #listaPapeis>
-                    <app-listar-papeis-voluntario [voluntario]="$voluntario.getValue()">
+                    <app-listar-papeis-voluntario [voluntario]="voluntario">
                     </app-listar-papeis-voluntario>
                 </ng-template>
                 <ng-template #confirmaVoluntariado>
