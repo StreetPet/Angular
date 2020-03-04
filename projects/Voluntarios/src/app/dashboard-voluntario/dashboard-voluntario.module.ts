@@ -3,25 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardVoluntarioRoutingModule } from './dashboard-voluntario-routing.module';
 import { DashboardVoluntarioComponent } from './dashboard-voluntario.component';
-import { IDashboardModule } from 'projects/auth/src/public-api';
-import { ListarPapeisVoluntarioComponent } from '../papeis/listar-papeis-voluntario/listar-papeis-voluntario.component';
-import { EditarPapeisVoluntarioComponent } from '../papeis/editar-papeis-voluntario/editar-papeis-voluntario.component';
-import { MatIconModule, MatRadioGroup, MatRadioButton, MatRadioModule } from '@angular/material';
+import { IDashboardModule } from 'projects/auth/src';
+import { MatIconModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { PapeisModule } from '../papeis/papeis.module';
 
 
 @NgModule({
   declarations: [
-    DashboardVoluntarioComponent,
-    EditarPapeisVoluntarioComponent,
-    ListarPapeisVoluntarioComponent
+    DashboardVoluntarioComponent
   ],
   imports: [
-    CommonModule, 
-    FormsModule,   
+    CommonModule,
+    FormsModule,
+    MatCheckboxModule,
     MatIconModule,
     MatRadioModule,
-    DashboardVoluntarioRoutingModule
+    DashboardVoluntarioRoutingModule,
+    PapeisModule
   ]
 })
 export class DashboardVoluntarioModule implements IDashboardModule { }

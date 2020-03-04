@@ -1,74 +1,78 @@
 <!-- Top navigation -->
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-   <a class="navbar-brand col-sm-3 col-md-2 mr-0">
-       <span class="dasboard-text">Dashboard - Voluntário</span>
-   </a>
+    <div class="navbar-brand col-sm-3 col-md-2 mr-0 pt-3 pb-2 mb-3 border-bottom">
+        <h2 class="h2">Perfil de {{(visitante.displayName) ? visitante.displayName : 'Visitante'}}</h2>
+        </div>
 </nav>
 
 <!-- Sidebar navigation -->
 <div class="container-fluid">
-   <div class="row">
+    <div class="row">
+        <nav class="col-md-2 d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active">
+                            <mat-icon>account_box</mat-icon>Perfil do Voluntário
+                        </a>
+                    </li>
+                    <!-- Calling SignOut() Api from AuthService -->
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="signOut()">
+                            <mat-icon>exit_to_app</mat-icon>Log out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-       <nav class="col-md-2 d-md-block bg-light sidebar">
-           <div class="sidebar-sticky">
-               <ul class="nav flex-column">
-                   <li class="nav-item">
-                       <a class="nav-link active">
-                           <i class="fas fa-user"></i>Perfil do Voluntário
-                       </a>
-                   </li>
-                   <!-- Calling SignOut() Api from AuthService -->
-                   <li class="nav-item">
-                       <a class="nav-link" (click)="signOut()">
-                           <i class="fas fa-sign-out-alt"></i>Log out
-                       </a>
-                   </li>
-               </ul>
-           </div>
-       </nav>
+        <!-- Main content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="inner-adjust">
 
-       <!-- Main content -->
-       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-           <div class="inner-adjust">
 
-               <div class="pt-3 pb-2 mb-3 border-bottom">
-                   <h1 class="h2">Perfil do Voluntário</h1>
-               </div>
-               <!-- Show user data when logged in -->
-               <div class=" row " *ngIf="visitanteData as User ">
-                   <div class="col-md-12 ">
-                       <div class="media ">
-                           <img class="align-self-start mr-5 img-thumbnail rounded-circle " src="{{(visitanteData.photoURL) ? visitanteData.photoURL : '/assets/dummy-user.png'}} " alt="{{visitanteData.displayName}} ">
-                           <div class="media-body ">
-                               <h1>Olá: <strong>{{(visitanteData.displayName) ? visitanteData.displayName : 'Visitante'}}</strong></h1>
-                               <p>ID do Visitante: <strong>{{visitanteData.uid}}</strong></p>
-                               <p>Email: <strong>{{visitanteData.email}}</strong></p>
-                               <p>Email Verificado: <strong>{{visitanteData.emailVerified}}</strong></p>
-                           </div>
-                       </div>
-                   </div>
-               </div>
+                <!-- Show user data when logged in -->
+                <div class=" row " *ngIf="visitante">
+                    <div class="col-md-12 ">
+                        <div class="media ">
+                            <img class="align-self-start mr-5 img-thumbnail rounded-circle "
+                                src="{{(visitante.photoURL) ? visitante.photoURL : '/assets/dummy-user.png'}} "
+                                alt="{{visitante.displayName}} ">
+                            <div class="media-body ">
+                                <h1>Olá:
+                                    <strong>{{(visitante.displayName) ? visitante.displayName : 'Visitante'}}</strong>
+                                </h1>
+                                <p>ID do Visitante: <strong>{{visitante.uid}}</strong></p>
+                                <p>Email: <strong>{{visitante.email}}</strong></p>
+                                <p>Email Verificado: <strong>{{visitante.emailVerified}}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-               <div class="row" *ngIf="!isVoluntario">
-                  <p>Deseja realmente se tornar um voluntário?</p>
-                  <p>Clique no botão abaixo para confirmar seu desejo, mas antes marque a caixa de seleção confirmando quê está ciênte das responsabilidades que está assumindo se tornando um voluntário do StreetPet.</p>
-                  <section class="">
-                  <mat-radio-group  [(ngModel)]="voluntariadoConfirmado">
-                  <mat-radio-button value="false">Nâo</mat-radio-button>&nbsp;
-                  <mat-radio-button  value="true">Sim</mat-radio-button>
-                  </mat-radio-group>
-                  </section>
+                <div class="row" *ngIf="voluntario; then listaPapeis; else confirmaVoluntariado">
+                </div>
+                <ng-template #listaPapeis>
+                    <app-listar-papeis-voluntario [voluntario]="voluntario">
+                    </app-listar-papeis-voluntario>
+                </ng-template>
+                <ng-template #confirmaVoluntariado>
+                    <p>Deseja realmente se tornar um voluntário?</p>
+                    <p>Clique no botão abaixo para confirmar seu desejo, mas antes marque a caixa de seleção
+                        confirmando quê está ciênte das responsabilidades que está assumindo se tornando um
+                        voluntário do StreetPet.</p>
+                    <section class="">
+                        <mat-radio-group [(ngModel)]="voluntariadoConfirmado">
+                            <mat-radio-button value="false">Nâo</mat-radio-button>&nbsp;
+                            <mat-radio-button value="true">Sim</mat-radio-button>
+                        </mat-radio-group>
+                    </section>
 
-                  <button  class="action " (click)="tornarSeVoluntario()">
-                     <mat-icon class="icon ">exit_to_app</mat-icon><span>Tornar-se um voluntário.</span>
-                  </button>
-               </div>
-               <div class="row" *ngIf="voluntarioData as Voluntario">
-                  <app-listar-papeis-voluntario 
-                      ator="voluntarioData"></app-listar-papeis-voluntario>
-               </div>
-           </div>
-       </main>
-
-   </div>
+                    <button class="action " (click)="tornarSeVoluntario()">
+                        <mat-icon class="icon ">assignment_ind</mat-icon><span>Tornar-se um voluntário.</span>
+                    </button>
+                </ng-template>
+            </div>
+        </main>
+    </div>
 </div>
