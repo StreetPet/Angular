@@ -315,7 +315,7 @@ export class VoluntariosService {
               const papel: Papel = doc.data() as Papel;
               if (papel) {
                 papel.uid = doc.id;
-                papeis[doc.id] = papel;
+                papeis.push(papel);
               }
             }));
         });
@@ -426,4 +426,14 @@ export class VoluntariosService {
         }
       });
   }
+
+  /**
+   * Observa no sistema se o voluntário recebeu um novo papel base, Voluntário e Visitante.
+   * @param voluntario 
+   * @param observeFn 
+   */
+  observeBasePapeis(voluntario: Voluntario, observeFn: PapeisObserverFunction): any {
+    return this.observePapeis(voluntario, observeFn);
+  }
+
 }
