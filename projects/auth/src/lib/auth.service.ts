@@ -11,7 +11,7 @@ import { AppMessagesService } from 'projects/app-messages/src';
 
 export class AuthServiceLocator {
   // tslint:disable-next-line: variable-name
-  private static _injector: Injector;
+  private static _injector: Injector = {} as Injector;
 
   public static get injector(): Injector {
     return AuthServiceLocator._injector;
@@ -43,9 +43,9 @@ export class AuthService {
     private router: Router,
     private ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
-    /* 
-     * Saving user data in localstorage when 
-     * logged in and setting up null when logged out 
+    /*
+     * Saving user data in localstorage when
+     * logged in and setting up null when logged out
      * */
     this.afAuth.authState.subscribe((visitante: User | null) => {
       if (visitante) {
@@ -55,7 +55,7 @@ export class AuthService {
         localStorage.setItem('visistante', null);
         JSON.parse(localStorage.getItem('visistante'));
       }
-    })
+    });
   }
 
   setDashboardModuleLoader(loader: LoaderDashboardModule) {
@@ -74,32 +74,37 @@ export class AuthService {
   /**
    *  Sign in with email/password
    */
-  signIn(email: string = null, password: string = null): Promise<boolean | void> {
+  signIn(email: string = null, password: string = null): Promise<void> {
     if (email)
       return this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .then((result: firebase.auth.UserCredential) => {
           this.ngZone.run(() => {
             this.router.navigate([DASHBOARD_ROUTER_NAME]);
           });
-          this.setVisitanteData(result.user);
+          this.setVisitante(result.user);
         }).catch((error) => {
           this.msgSrv.addMsg(error.message, 'alert');
         });
-    else
-      return this.router.navigate([SIGN_IN_ROUTER_NAME]);
+    else {
+      this.router.navigate([SIGN_IN_ROUTER_NAME]);
+      this.msgSrv.addMsg('E-mail não foi informado!', 'alert');
+      return Promise.reject('E-mail não foi informado!');
+    }
   }
 
   // Sign up with email/password
   signUp(email, password): Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
+        /*
+         * Call the SendVerificaitonMail() function when new user sign
+         * up and returns promise
+         */
         this.sendVerificationMail();
-        this.setVisitanteData(result.user);
+        this.setVisitante(result.user);
       }).catch((error) => {
         this.msgSrv.addMsg(error.message, 'alert');
-      })
+      });
   }
 
   /**
@@ -109,7 +114,7 @@ export class AuthService {
     return this.afAuth.auth.currentUser.sendEmailVerification()
       .then(() => {
         this.router.navigate([VERIFY_EMAIL_ADDRESS_ROUTER_NAME]);
-      })
+      });
   }
 
   /**
@@ -157,8 +162,8 @@ export class AuthService {
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigate([DASHBOARD_ROUTER_NAME]);
-        })
-        this.setVisitanteData(result.user);
+        });
+        this.setVisitante(result.user);
       }).catch((error) => {
         this.msgSrv.addMsg(error.message, 'alert');
       });
@@ -171,10 +176,10 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('visistante'));
   }
 
-  /* Setting up user data when sign in with username/password, 
-  sign up with username/password and sign in with social auth  
+  /* Setting up user data when sign in with username/password,
+  sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setVisitanteData(user: User): Promise<void> {
+  private setVisitante(user: User): Promise<void> {
     const userRef: AngularFirestoreDocument<Visitante> = this.afs.doc<Visitante>(`users/${user.uid}`);
 
     localStorage.setItem('visistante', JSON.stringify(user));

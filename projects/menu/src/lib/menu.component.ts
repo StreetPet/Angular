@@ -10,7 +10,7 @@ import { AuthService, DASHBOARD_ROUTER_NAME as DASHBOARD_ROUTER_NAME_LIB } from 
 export class MenuComponent implements OnInit {
 
   readonly DASHBOARD_ROUTER_NAME = DASHBOARD_ROUTER_NAME_LIB;
-  constructor(private authService:AuthService,private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -19,17 +19,17 @@ export class MenuComponent implements OnInit {
     return this.authService.isLoggedIn;
   }
 
-  public login(): Promise<boolean> {
-    console.log("Clicando no Login");
+  public login(): Promise<void> {
+    console.log('Clicando no Login');
     return this.authService.signIn();
   }
 
   public logout(): Promise<void> {
-    console.log("Clicando no Logout");
+    console.log('Clicando no Logout');
     return this.authService.signOut();
   }
 
   public get userAvatar(): string {
-    return this.authService.visitanteData.photoURL;
+    return this.authService.visitante.photoURL;
   }
 }
