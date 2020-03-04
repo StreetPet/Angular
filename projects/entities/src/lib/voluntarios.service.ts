@@ -60,8 +60,10 @@ export class VoluntariosService {
 
     return this.getVoluntarioDoc(uid).subscribe(
       (data: Action<DocumentSnapshot<Voluntario>>) => {
-        const voluntario: Voluntario = data.payload.data();
-        observerFn(voluntario);
+        if (data.payload.exists) {
+          const voluntario: Voluntario = data.payload.data();
+          observerFn(voluntario);
+        } else observerFn(null);
       });
   }
 
