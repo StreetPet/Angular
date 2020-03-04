@@ -23,14 +23,14 @@
 </div>
 
 <div class="list-group users-list">
-    <div *ngFor="let voluntario of voluntariosDocRef" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div *ngFor="let voluntario of voluntarios$ |async" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="row">
             <div class="col col-md-2 image-col">
-                <img class="image" [src]="voluntario.payload.doc.data().avatar">
+                <img class="image" [src]="voluntario.avatar">
             </div>
             <div class="col col-md-8 text-col">
-                <h5 class="mb-1">{{voluntario.payload.doc.data().nome}} {{voluntario.payload.doc.data().sobrenome}}</h5>
-                <small>Idade: {{voluntario.payload.doc.data().idade}}</small>
+                <h5 class="mb-1">{{voluntario.nome}} {{voluntario.sobrenome}}</h5>
+                <small>Idade: {{voluntario.idade}}</small>
             </div>
             <div class="col col-md-2 actions-col">
                 <button mat-icon-button [matMenuTriggerFor]="menuVoluntario" aria-label="Gerencia do Voluntário">
@@ -46,7 +46,7 @@
   </button>
                 <button mat-menu-item class="btn btn-outline-primary action" (click)="editRoles(voluntario)" type="button">
     <mat-icon class="icon">recent_actors</mat-icon>
-    <span>Adicionar Papeis</span>
+    <span>Editar Papeis</span>
   </button>
 
                 </mat-menu>

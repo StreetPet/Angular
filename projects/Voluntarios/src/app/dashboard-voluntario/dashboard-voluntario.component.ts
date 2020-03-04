@@ -1,35 +1,87 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DashboardComponent } from 'projects/auth/src/lib/dashboard/dashboard.component';
-import { User } from 'firebase';
-import { AuthService } from 'projects/auth/src/public-api';
-import { Voluntario } from 'projects/entities/src/public-api';
+import { Voluntario, VoluntariosService, AvatarVoluntario } from 'projects/entities/src';
+import { AuthService } from 'projects/auth/src';
+import { BehaviorSubject, Subject, Observable, Subscription } from 'rxjs';
+import { AppMessagesService } from 'projects/app-messages/src';
+import { Visitante } from 'entities/lib/visitantes/visitante';
 
 @Component({
   selector: 'app-dashboard-voluntario',
   templateUrl: './dashboard-voluntario.component.html',
   styleUrls: ['./dashboard-voluntario.component.scss']
 })
-export class DashboardVoluntarioComponent extends DashboardComponent implements OnInit {
-  
-  private _voluntarioData: Voluntario;
+export class DashboardVoluntarioComponent
+  extends DashboardComponent
+  implements OnInit, OnDestroy {
+
+  // tslint:disable-next-line: variable-name
+  private _$voluntario: BehaviorSubject<Voluntario> = new BehaviorSubject<Voluntario>(null);
+
   voluntariadoConfirmado: boolean = false;
+  private subscriptionVoluntario: Subscription;
 
-  get voluntarioData():Voluntario{
-    return this._voluntarioData;
+  constructor(
+    protected msgSrv: AppMessagesService,
+    protected authService: AuthService,
+    private voluntarioSrv: VoluntariosService) {
+
+    super(authService);
+
   }
 
-  get isVoluntario(): boolean{
-    return this.voluntarioData != null;;
+  get voluntario(): Voluntario {
+    return this._$voluntario.getValue();
   }
 
-  public async tornarSeVoluntario(){
-    return new Promise((resolve,reject)=>{
-      if(!this.voluntariadoConfirmado) reject();
-      
-      this._voluntarioData = <Voluntario>{
-        
-      };
-      resolve();
+  ngOnInit() {
+    console.log(`DashboardVoluntarioComponent.ngOnInit voluntário: ${JSON.stringify(this._$voluntario.getValue())}`);
+
+    this.$visitante.subscribe((visitante: Visitante) => {
+      if (visitante) {
+        if (this.subscriptionVoluntario)
+          this.subscriptionVoluntario.unsubscribe();
+
+        this.subscriptionVoluntario = this.voluntarioSrv
+          .observeVoluntario(visitante.uid, (voluntario: Voluntario) => {
+
+            console.log(`DashboardVoluntarioComponent.ngOnInit`
+              + ` Srv.observeVoluntario Voluntario: ${JSON.stringify(voluntario)}`);
+
+            this._$voluntario.next(voluntario);
+          });
+
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscriptionVoluntario)
+      this.subscriptionVoluntario.unsubscribe();
+    super.ngOnDestroy();
+
+  }
+
+  public tornarSeVoluntario(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      if (!this.voluntariadoConfirmado) {
+        this.msgSrv.addMsg(
+          'Você precisa confirmar que está ciente de nossa politica de trabalho e das responsabilidade que está assumindo!');
+        reject();
+      }
+
+      // popular Voluntário com dados do usuário logado
+      const novoVoluntario: Voluntario = {
+        uid: this.visitante.uid,
+        nome: this.visitante.displayName,
+        email: this.visitante.email,
+        avatar: this.visitante.photoURL
+      } as Voluntario;
+      this.voluntarioSrv.createVoluntario(novoVoluntario)
+        .then((voluntario: Voluntario) => {
+          this._$voluntario.next(voluntario);
+        });
+      resolve(true);
     });
   }
 }

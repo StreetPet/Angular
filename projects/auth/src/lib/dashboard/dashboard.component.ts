@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from 'firebase';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Visitante } from 'projects/entities/src';
+import { BehaviorSubject, Subscribable, Subscription } from 'rxjs';
 
 export interface IDashboardComponent {
-  visitante: Visitante;
+  $visitante: BehaviorSubject<Visitante>;
   signOut(): Promise<void>;
 }
 
@@ -13,20 +13,34 @@ export interface IDashboardComponent {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements IDashboardComponent, OnInit {
+export class DashboardComponent implements IDashboardComponent, OnDestroy {
+
+  // tslint:disable-next-line: variable-name
+  private _visitante: BehaviorSubject<Visitante> = new BehaviorSubject<Visitante>(null);
+  // tslint:disable-next-line: variable-name
+  private _subscriptionVisitante: Subscription;
 
   constructor(
-    protected authService: AuthService) { }
+    protected authService: AuthService) {
+    this._subscriptionVisitante = this.authService.observeVisitante((visitante: Visitante) => {
+      this._visitante.next(visitante);
+    });
 
-  ngOnInit() {
+  }
+
+  public get $visitante(): BehaviorSubject<Visitante> {
+    return this._visitante;
   }
 
   public get visitante(): Visitante {
-    return this.authService.visitante;
+    return this._visitante.getValue();
   }
 
   public signOut(): Promise<void> {
     return this.authService.signOut();
   }
 
+  ngOnDestroy() {
+    if (this._subscriptionVisitante) this._subscriptionVisitante.unsubscribe();
+  }
 }

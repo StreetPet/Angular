@@ -60,8 +60,10 @@ export class VoluntariosService {
 
     return this.getVoluntarioDoc(uid).subscribe(
       (data: Action<DocumentSnapshot<Voluntario>>) => {
-        const voluntario: Voluntario = data.payload.data();
-        observerFn(voluntario);
+        if (data.payload.exists) {
+          const voluntario: Voluntario = data.payload.data();
+          observerFn(voluntario);
+        } else observerFn(null);
       });
   }
 
@@ -313,7 +315,7 @@ export class VoluntariosService {
               const papel: Papel = doc.data() as Papel;
               if (papel) {
                 papel.uid = doc.id;
-                papeis[doc.id] = papel;
+                papeis.push(papel);
               }
             }));
         });
@@ -424,4 +426,14 @@ export class VoluntariosService {
         }
       });
   }
+
+  /**
+   * Observa no sistema se o voluntário recebeu um novo papel base, Voluntário e Visitante.
+   * @param voluntario 
+   * @param observeFn 
+   */
+  observeBasePapeis(voluntario: Voluntario, observeFn: PapeisObserverFunction): any {
+    return this.observePapeis(voluntario, observeFn);
+  }
+
 }

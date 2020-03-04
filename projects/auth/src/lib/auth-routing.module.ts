@@ -28,10 +28,9 @@ const routes: Routes = [
    {
       path: DASHBOARD_ROUTER_NAME,
       loadChildren: () => {
-         console.log('****** loadChildren *******')
+         console.log('****** loadChildren - getDashboardModule *******')
          const comp = AuthServiceLocator.injector
-            .get(AuthService).getDashboardComponent();
-         console.log(comp);
+            .get(AuthService).getDashboardModule();
          return comp;
       },
       canActivate: [AuthGuard]

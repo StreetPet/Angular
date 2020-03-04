@@ -1,13 +1,14 @@
 import { Injectable, NgZone, Injector, } from '@angular/core';
 import { User, auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, DocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Visitante } from 'projects/entities/src';
 import { VERIFY_EMAIL_ADDRESS_ROUTER_NAME, DASHBOARD_ROUTER_NAME } from './auth-routing.names';
 import { SIGN_IN_ROUTER_NAME } from './auth-routing.names';
 import { IDashboardModule } from './dashboard/dashboard.module';
 import { AppMessagesService } from 'projects/app-messages/src';
+import { BehaviorSubject, Subscribable, Subscription } from 'rxjs';
 
 export class AuthServiceLocator {
   // tslint:disable-next-line: variable-name
@@ -33,8 +34,13 @@ export type LoaderDashboardModule = () => Promise<IDashboardModule>;
   providedIn: 'root'
 })
 export class AuthService {
+
   // tslint:disable-next-line: variable-name
   private _dashboardModuleLoader: LoaderDashboardModule;
+  // tslint:disable-next-line: variable-name
+  private _visitante: BehaviorSubject<Visitante>;
+  // tslint:disable-next-line: variable-name
+  private _subscribeVisitante: Subscription;
 
   constructor(
     private afs: AngularFirestore,   // Inject Firestore service
@@ -43,27 +49,41 @@ export class AuthService {
     private router: Router,
     private ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
+    this._visitante = new BehaviorSubject<Visitante>(JSON.parse(localStorage.getItem('visitante')));
+
     /*
      * Saving user data in localstorage when
      * logged in and setting up null when logged out
      * */
     this.afAuth.authState.subscribe((visitante: User | null) => {
       if (visitante) {
-        localStorage.setItem('visistante', JSON.stringify(this.visitante));
-        JSON.parse(localStorage.getItem('visistante'));
+        localStorage.setItem('visistante', JSON.stringify(visitante));
+        this._visitante.next(visitante);
       } else {
         localStorage.setItem('visistante', null);
-        JSON.parse(localStorage.getItem('visistante'));
+        this._visitante.next(null);
       }
     });
   }
 
-  setDashboardModuleLoader(loader: LoaderDashboardModule) {
+  observeVisitante(observerFn: (visitante: Visitante) => void): Subscription {
+    return this._visitante.subscribe(observerFn);
+  }
+
+  /**
+   * Seta uma função que importa o módulo que constroe o Dashboard.
+   * 
+   * @param loader 
+   */
+  public setDashboardModuleLoader(loader: LoaderDashboardModule) {
     this._dashboardModuleLoader = loader;
   }
 
-  getDashboardComponent(): Promise<IDashboardModule> {
-    console.log('***** getDashboardComponent ****');
+  /**
+   * Retorna o módulo que será usado para construir o DashBoard.
+   */
+  getDashboardModule(): Promise<IDashboardModule> {
+    console.log('***** AuthService.getDashboardModule ****');
     if (this._dashboardModuleLoader)
       return this._dashboardModuleLoader();
     else
@@ -180,11 +200,11 @@ export class AuthService {
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   private setVisitante(user: User): Promise<void> {
-    const userRef: AngularFirestoreDocument<Visitante> = this.afs.doc<Visitante>(`users/${user.uid}`);
+    const visitanteRef: AngularFirestoreDocument<Visitante> = this.afs.doc<Visitante>(`users/${user.uid}`);
 
     localStorage.setItem('visistante', JSON.stringify(user));
 
-    const userData: Visitante = {
+    const visitante: Visitante = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
@@ -192,8 +212,16 @@ export class AuthService {
       emailVerified: user.emailVerified
     };
 
-    return userRef.set(userData, {
+    return visitanteRef.set(visitante, {
       merge: true
+    }).then(() => {
+      if (this._subscribeVisitante) this._subscribeVisitante.unsubscribe();
+      this._subscribeVisitante = visitanteRef.get()
+        .subscribe((ref: DocumentSnapshot<DocumentData>) => {
+          if (ref.exists) {
+            this._visitante.next(ref.data() as Visitante);
+          }
+        });
     });
   }
 
@@ -204,6 +232,7 @@ export class AuthService {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('visistante');
       this.router.navigate([SIGN_IN_ROUTER_NAME]);
+      this._subscribeVisitante.unsubscribe();
     });
   }
 }

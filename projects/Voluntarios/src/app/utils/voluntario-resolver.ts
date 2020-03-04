@@ -4,14 +4,14 @@ import { VoluntariosService } from 'projects/entities/src/lib/voluntarios.servic
 import { Voluntario } from 'projects/entities/src';
 
 @Injectable()
-export class VoluntarioResolver implements Resolve<any> {
+export class VoluntarioResolver implements Resolve<Voluntario> {
 
-   constructor(private servico: VoluntariosService) { }
+   constructor(private voluntarioSrv: VoluntariosService) { }
 
-   resolve(route: ActivatedRouteSnapshot) {
+   resolve(route: ActivatedRouteSnapshot): Promise<Voluntario> {
       return new Promise((resolve, reject) => {
          const id = route.paramMap.get('id');
-         const subscription = this.servico.observeVoluntario(id,
+         const subscription = this.voluntarioSrv.observeVoluntario(id,
             (voluntario: Voluntario) => {
                subscription.unsubscribe();
                if (voluntario) {
