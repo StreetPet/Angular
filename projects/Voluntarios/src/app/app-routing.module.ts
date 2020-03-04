@@ -4,7 +4,7 @@ import { VoluntarioResolver } from './utils/voluntario-resolver'
 import { ListaVoluntariosComponent } from './lista-voluntarios/lista-voluntarios.component';
 import { AdicionaVoluntarioComponent } from './adiciona-voluntario/adiciona-voluntario.component';
 import { EditaVoluntarioComponent } from './edita-voluntario/edita-voluntario.component';
-import { PageNotFoundComponent } from 'projects/layout/src/lib/404/404.component'; 
+import { PageNotFoundComponent } from 'projects/layout/src/lib/404/404.component';
 
 const routes: Routes = [
   {
@@ -26,14 +26,14 @@ const routes: Routes = [
       data: VoluntarioResolver
     }
   },
-  
+
   { path: 'papeis', loadChildren: () => import('./papeis/papeis.module').then(m => m.PapeisModule) },
 
   { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
