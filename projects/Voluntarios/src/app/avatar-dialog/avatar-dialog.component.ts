@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
 import { AvatarVoluntario } from 'projects/entities/src/lib/voluntarios';
 import { VoluntariosService } from 'projects/entities/src/lib/voluntarios.service';
 import { Subscription, Observable } from 'rxjs';
@@ -22,14 +22,16 @@ export class AvatarDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.getAvatars()
-      .subscribe(data => {
+      .subscribe((data: AvatarVoluntario[]) => {
         this.avatars = data;
         this.avatars.push(this.atualAvatar);
       });
   }
 
   ngOnDestroy() {
-    if (this.subscription && !this.subscription.closed) this.subscription.unsubscribe();
+    if (this.subscription && !this.subscription.closed) {
+      this.subscription.unsubscribe()
+    };
   }
 
   getAvatars(): Observable<AvatarVoluntario[]> {
