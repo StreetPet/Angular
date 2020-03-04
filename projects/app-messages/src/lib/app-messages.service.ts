@@ -35,6 +35,9 @@ export class AppMessagesService {
       }
     });
   }
+  public log(arg0: string) {
+    console.log(arg0);
+  }
 
   set duration(d: number) {
     this._durationInSeconds = d;
